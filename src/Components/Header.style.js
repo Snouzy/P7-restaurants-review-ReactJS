@@ -1,19 +1,22 @@
 import styled from "styled-components";
 
-const ImgWrapper = styled.div`
-   margin-right: 50px;
-   @media (max-width: 635px) {
-      margin-right: 0px;
-  }
+const ImgWrapper = styled.img`
+   margin-right: 20px;
 `;
 
 const NavWrapper = styled.nav`
-  @media (max-width: 635px) {
+text-align: center;
+  @media (max-width: 730px) {
       display: flex;
       flex-direction: column;
       justify-content: center;
   }
 `;
 
-export { ImgWrapper, NavWrapper };
+const NavTirdTitle = styled.h3`
+   color: #fff;
+   display: inline-block;
+`
+
+export { ImgWrapper, NavWrapper, NavTirdTitle };
 
