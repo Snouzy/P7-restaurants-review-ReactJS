@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import data from "../data.json";
 import Stars from "./Stars";
+import styled from "styled-components";
 
 class Restaurants extends Component {
    // return the average number of an array of numbers
@@ -31,12 +32,14 @@ class Restaurants extends Component {
                return (
                   <div key={index}>
                      <h5>{resto.restaurantName}</h5>
-                     <strong>Here will be the stars</strong>
-                     <p>{resto.address}</p>
+                     <pWrapper>{resto.address}</pWrapper>
                      <Stars
                         numberOfStars={this.average(currentRestoStars)}
                         //format so i can select them with querySelector
-                        restaurantName={resto.restaurantName.replace(/[^a-zA-Z]/g, "")} 
+                        restaurantName={resto.restaurantName.replace(
+                           /[^a-zA-Z]/g,
+                           ""
+                        )}
                      />
                      <hr />
                   </div>
@@ -46,5 +49,7 @@ class Restaurants extends Component {
       );
    }
 }
-
+const pWrapper = styled.p`
+   margin-bottom: 0;
+`;
 export default Restaurants;
