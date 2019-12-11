@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import data from "../data.json";
 import Stars from "./Stars";
+import styled from "styled-components";
 
 class Restaurants extends Component {
    // return the average number of an array of numbers
@@ -15,13 +15,11 @@ class Restaurants extends Component {
    };
 
    render() {
-      let currentRestoStars = [];
-
       return (
          <div id="restaux" className="col-sm-12">
             {data.map((resto, index) => {
                // empty at each iteration
-               currentRestoStars = [];
+               let currentRestoStars = [];
 
                //stars are depending on how much ratings the restaurant has :
                for (let i = 0; i < resto.ratings.length; i++) {
@@ -34,9 +32,15 @@ class Restaurants extends Component {
                return (
                   <div key={index}>
                      <h5>{resto.restaurantName}</h5>
-                     <strong>Here will be the stars</strong>
-                     <p>{resto.address}</p>
-                     <Stars numberOfStars={this.average(currentRestoStars)} />
+                     <pWrapper>{resto.address}</pWrapper>
+                     <Stars
+                        numberOfStars={this.average(currentRestoStars)}
+                        //format so i can select them with querySelector
+                        restaurantName={resto.restaurantName.replace(
+                           /[^a-zA-Z]/g,
+                           ""
+                        )}
+                     />
                      <hr />
                   </div>
                );
@@ -45,5 +49,7 @@ class Restaurants extends Component {
       );
    }
 }
-
+const pWrapper = styled.p`
+   margin-bottom: 0;
+`;
 export default Restaurants;

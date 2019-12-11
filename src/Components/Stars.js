@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import data from "../data.json";
-
+import ReactStars from "react-stars";
+// import data from "../data.json";
 class Stars extends Component {
    render() {
-      // Initial rating
-
       return (
-         <div className={this.props.numberOfStars}>
-            <FontAwesomeIcon icon={faStar} />
-         </div>
+         <ReactStars
+            count={5}
+            value={this.props.numberOfStars}
+            size={25}
+            color1={"#ccc"}
+            color2={"#ffd700"}
+         />
       );
    }
 }
