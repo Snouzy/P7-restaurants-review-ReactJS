@@ -32,7 +32,7 @@ class Restaurants extends Component {
                return (
                   <div key={index}>
                      <h5>{resto.restaurantName}</h5>
-                     <pWrapper>{resto.address}</pWrapper>
+                     <PWrapper>{resto.address}</PWrapper>
                      <Stars
                         numberOfStars={this.average(currentRestoStars)}
                         //format so i can select them with querySelector
@@ -49,7 +49,7 @@ class Restaurants extends Component {
       );
    }
 }
-const pWrapper = styled.p`
+const PWrapper = styled.p`
    margin-bottom: 0;
 `;
 export default Restaurants;
