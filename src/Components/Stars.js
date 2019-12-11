@@ -9,7 +9,7 @@ class Stars extends Component {
             value={this.props.numberOfStars}
             size={25}
             color1={"#ccc"}
-            color2={"#ffd700"}
+            color2={"#ffd701"}
          />
       );
    }
