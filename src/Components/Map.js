@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Stars from "./Stars";
+
 import {
    GoogleMap,
    withScriptjs,
@@ -7,6 +9,7 @@ import {
    InfoWindow
 } from "react-google-maps";
 import data from "../data.json";
+
 class Map extends Component {
    state = {
       selectedRestaurant: null
@@ -16,6 +19,11 @@ class Map extends Component {
       //put the selectedRestaurant into the state
       this.setState({ selectedRestaurant: data[index] });
    }
+
+   // avoid to re render at each click on the marker
+   // shouldComponentUpdate(nextProps, nextState) {
+
+   // }
 
    Map = () => {
       return (
@@ -51,6 +59,7 @@ class Map extends Component {
                   <div>
                      <h4>{this.state.selectedRestaurant.restaurantName}</h4>
                      <p>{this.state.selectedRestaurant.address}</p>
+                     <Stars numberOfStars={this.state.selectedRestaurant} />
                   </div>
                </InfoWindow>
             )}
