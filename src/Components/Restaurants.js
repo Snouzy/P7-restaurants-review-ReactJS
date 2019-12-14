@@ -2,17 +2,10 @@ import React, { Component } from "react";
 import data from "../data.json";
 import Stars from "./Stars";
 import styled from "styled-components";
+import { averageStars } from "../services/libs";
 
 class Restaurants extends Component {
    // return the average number of an array of numbers
-   average = arr => {
-      return (
-         arr.reduce(function(a, b) {
-            //a = accumulator // b = current value
-            return a + b;
-         }, 0) / arr.length // 0 = inital value
-      );
-   };
 
    render() {
       return (
@@ -27,20 +20,13 @@ class Restaurants extends Component {
                }
 
                // the average stars of each restaurant
-               console.log(this.average(currentRestoStars));
+               console.log(averageStars(currentRestoStars));
 
                return (
                   <div key={index}>
                      <h5>{resto.restaurantName}</h5>
                      <PWrapper>{resto.address}</PWrapper>
-                     <Stars
-                        numberOfStars={this.average(currentRestoStars)}
-                        //format so i can select them with querySelector
-                        restaurantName={resto.restaurantName.replace(
-                           /[^a-zA-Z]/g,
-                           ""
-                        )}
-                     />
+                     <Stars numberOfStars={averageStars(resto.ratings)} />
                      <hr />
                   </div>
                );
