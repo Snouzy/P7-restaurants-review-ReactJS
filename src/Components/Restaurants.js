@@ -11,17 +11,6 @@ class Restaurants extends Component {
       return (
          <div id="restaux" className="col-sm-12">
             {data.map((resto, index) => {
-               // empty at each iteration
-               let currentRestoStars = [];
-
-               //stars are depending on how much ratings the restaurant has :
-               for (let i = 0; i < resto.ratings.length; i++) {
-                  currentRestoStars.push(resto.ratings[i].stars); // pushing each stars
-               }
-
-               // the average stars of each restaurant
-               console.log(averageStars(currentRestoStars));
-
                return (
                   <div key={index}>
                      <h5>{resto.restaurantName}</h5>

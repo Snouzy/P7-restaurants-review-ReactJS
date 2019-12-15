@@ -3,7 +3,6 @@ import { NavWrapper, ImgWrapper, NavTirdTitle } from "./Header.style";
 import logo from "../imgs/snouzEat128x128_blanc.png";
 // import PStyle from "./Header.style";
 
-
 class Header extends Component {
    render() {
       return (
@@ -19,6 +18,5 @@ class Header extends Component {
       );
    }
 }
-
 
 export default Header;

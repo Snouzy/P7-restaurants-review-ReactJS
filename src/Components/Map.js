@@ -41,15 +41,18 @@ const RenderGoogleMap = () => {
          defaultZoom={8}
          //Sensushi for the moment (need to replace by the center of the user)
          defaultCenter={{
-            lat: 47.59283,
-            lng: 7.58389
+            lat: 47.58612,
+            lng: 7.5832
          }}
       >
          {data.map((resto, index) => {
             return (
                <Marker
                   key={resto.restaurantName}
-                  position={{ lat: resto.lat, lng: resto.long }}
+                  position={{
+                     lat: resto.lat,
+                     lng: resto.long
+                  }}
                   onClick={() => handleClick(index)}
                />
             );
