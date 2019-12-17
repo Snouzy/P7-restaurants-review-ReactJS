@@ -7,6 +7,7 @@ import { averageStars } from "../services/libs";
 class Restaurants extends Component {
    // return the average number of an array of numbers
 
+
    render() {
       return (
          <div id="restaux" className="col-sm-12">
