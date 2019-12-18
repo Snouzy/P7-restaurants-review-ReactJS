@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Header from "./Components/Header";
 import Map from "./Components/Map";
-import Infos from "./Components/Infos";
+import Restaurants from "./Components/Restaurants";
 
 function App() {
    return (
@@ -11,7 +11,7 @@ function App() {
          <div className="container-fluid">
             <div className="row">
                <Map />
-               <Infos />
+               <Restaurants />
             </div>
          </div>
       </div>
