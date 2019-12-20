@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, Fragment } from "react";
 import Stars from "./Stars";
 import UserIcon from "../imgs/MapMarker_PushPin_Left_Green.svg";
 
@@ -9,9 +9,10 @@ import {
    Marker,
    InfoWindow
 } from "react-google-maps";
-
+import _ from "lodash";
 import data from "../data.json";
 import { averageStars } from "../services/libs";
+import styled from "styled-components";
 
 class Map extends Component {
    constructor(props) {
@@ -69,11 +70,7 @@ const RenderGoogleMap = props => {
    };
 
    return (
-      <GoogleMap
-         defaultZoom={8}
-         //Sensushi for the moment (need to replace by the center of the user)
-         defaultCenter={coords}
-      >
+      <GoogleMap defaultZoom={8} defaultCenter={coords}>
          {/* display the markers */}
          {data.map((resto, index) => {
             return (
@@ -95,20 +92,58 @@ const RenderGoogleMap = props => {
                scaledSize: new window.google.maps.Size(40, 40)
             }}
          />
+         {/* If the user selected a restaurant, we display the google modal : */}
          {selectedRestaurant && (
             <InfoWindow
                position={{
                   lat: selectedRestaurant.lat,
                   lng: selectedRestaurant.long
                }}
-               onCloseClick={() => setSelectedRestaurant(null)}
+               onCloseClick={() => setSelectedRestaurant(null)} //putting the value to no restaurant selected
             >
                <div>
+                  {/* Content of the InfoWindow modal */}
+                  {/* Header */}
                   <h4>{selectedRestaurant.restaurantName}</h4>
                   <p>{selectedRestaurant.address}</p>
-                  <Stars
-                     numberOfStars={averageStars(selectedRestaurant.ratings)}
-                  />
+                  {/* Average rating section */}
+                  <DivNoteGenerale>
+                     <h5 style={{ margin: "0 10px 0 0" }}>Note générale :</h5>
+                     <Stars
+                        numberOfStars={averageStars(selectedRestaurant.ratings)}
+                        isEditable={false}
+                        size={25}
+                     />
+                  </DivNoteGenerale>
+                  {/* User rating section */}
+                  <div>
+                     {selectedRestaurant.ratings.map((resto, index) => {
+                        let i = index + 1; //to not start at 0
+                        console.log(i);
+
+                        return (
+                           <Fragment key={resto.comment}>
+                              <DivAvis>
+                                 <PWrapper>Avis numéro {i} :</PWrapper>
+                                 <Stars
+                                    numberOfStars={resto.stars}
+                                    isEditable={false}
+                                    size={20}
+                                 />
+                              </DivAvis>
+
+                              <p>{resto.comment}</p>
+
+                              {/* We don't want to display an <hr /> after the last element. */}
+                              {i === selectedRestaurant.ratings.length ? (
+                                 ""
+                              ) : (
+                                 <hr />
+                              )}
+                           </Fragment>
+                        );
+                     })}
+                  </div>
                </div>
             </InfoWindow>
          )}
@@ -117,3 +152,20 @@ const RenderGoogleMap = props => {
 };
 
 export default Map;
+
+const PWrapper = styled.p`
+   margin: 0 10px 0 0;
+   font-weight: bold;
+`;
+
+const DivAvis = styled.div`
+   display: flex;
+   align-items: center;
+   margin: 10px 0;
+`;
+
+const DivNoteGenerale = styled.div`
+   display: flex;
+   align-items: center;
+   margin: 30px 0;
+`;

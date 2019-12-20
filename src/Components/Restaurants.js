@@ -3,6 +3,7 @@ import data from "../data.json";
 import Stars from "./Stars";
 import { averageStars } from "../services/libs";
 import Filter from "./Filter";
+import styled from "styled-components";
 
 export const Restaurants = () => {
    const [restaurants, setRestaurants] = React.useState(data);
@@ -22,13 +23,11 @@ export const Restaurants = () => {
    //useEffect ~= componentDidMount, il est appelé quand le component est re-render, à moins que l'on lui dise seulement si ", [] " change
    React.useEffect(() => {
       const restos = data.filter(resto => {
-         console.log(averageStars(resto.ratings), minimum, maximum);
          return (
             averageStars(resto.ratings) >= minimum &&
             averageStars(resto.ratings) <= maximum
          );
       });
-
       setRestaurants(restos); //updating the state with new values
    }, [minimum, maximum, setRestaurants]);
 
@@ -45,7 +44,11 @@ export const Restaurants = () => {
                   <div key={index}>
                      <h5>{resto.restaurantName}</h5>
                      <p style={{ marginBottom: "0" }}>{resto.address}</p>
-                     <Stars numberOfStars={averageStars(resto.ratings)} />
+                     <Stars
+                        numberOfStars={averageStars(resto.ratings)}
+                        isEditable={false}
+                        size={25}
+                     />
                      <hr />
                   </div>
                );

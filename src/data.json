@@ -1,4 +1,5 @@
 [{
+      "id":1,
       "restaurantName": "SenSushi",
       "address": "9 Rue Abbatucci, 68330 Huningue",
       "lat": 47.592830,
@@ -18,6 +19,7 @@
       ]
    },
    {
+      "id":2,
       "restaurantName": "Tivoli Hôtel Restaurant",
       "address": "15 Avenue de Bâle, 68330 Huningue",
       "lat": 47.586120,
@@ -37,6 +39,7 @@
       ]
    },
    {
+      "id":3,
       "restaurantName": "Palais d'Asie",
       "address": "71 Avenue de Bâle, 68300 Saint-Louis",
       "lat": 47.579200,
@@ -56,6 +59,7 @@
       ]
    },
    {
+      "id":4,
       "restaurantName": "Chez Madar Joon",
       "address": "22 Rue de Sierentz, 68330 Huningue",
       "lat": 47.591190,
@@ -80,6 +84,7 @@
       ]
    },
    {
+      "id":5,
       "restaurantName": "Sushi's",
       "address": "25 Avenue de Bâle, 68300 Saint-Louis",
       "lat": 47.583920,
@@ -108,6 +113,7 @@
       ]
    },
    {
+      "id":6,
       "restaurantName": "Restaurant Bistrot La Cave",
       "address": "1 Rue de Lectoure, 68300 Saint-Louis",
       "lat": 47.584970,
@@ -124,6 +130,7 @@
       ]
    },
    {
+      "id":7,
       "restaurantName": "Auberge Au Cheval Blanc",
       "address": "4 Rue du Général de Gaulle, 68220 Hésingue",
       "lat": 47.575780,
