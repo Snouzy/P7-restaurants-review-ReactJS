@@ -1,16 +1,13 @@
 import React from "react";
 import data from "../data.json";
 import Stars from "./Stars";
-import styled from "styled-components";
 import { averageStars } from "../services/libs";
 import Filter from "./Filter";
 
 export const Restaurants = () => {
-   const [restaurants, setRestaurants] = React.useState(
-      data.map(resto => resto)
-   );
+   const [restaurants, setRestaurants] = React.useState(data);
    const [minimum, setMinimum] = React.useState(null);
-   const [maximum, setMaximum] = React.useState(5); //initializing to 5 stars max
+   const [maximum, setMaximum] = React.useState(5); //initializing the ratings to 5 stars max
 
    const handleFilter = e => {
       if (e.target.name === "sort-max") {
@@ -20,7 +17,12 @@ export const Restaurants = () => {
          setMinimum(parseInt(e.target.value));
          setMaximum(document.getElementsByName("sort-max")[0].value);
       }
-      const restos = restaurants.filter(resto => {
+   };
+
+   //useEffect ~= componentDidMount, il est appelé quand le component est re-render, à moins que l'on lui dise seulement si ", [] " change
+   React.useEffect(() => {
+      const restos = data.filter(resto => {
+         console.log(averageStars(resto.ratings), minimum, maximum);
          return (
             averageStars(resto.ratings) >= minimum &&
             averageStars(resto.ratings) <= maximum
@@ -28,7 +30,7 @@ export const Restaurants = () => {
       });
 
       setRestaurants(restos); //updating the state with new values
-   };
+   }, [minimum, maximum, setRestaurants]);
 
    return (
       <div className="row col-sm-12 col-lg-3">
@@ -42,7 +44,7 @@ export const Restaurants = () => {
                return (
                   <div key={index}>
                      <h5>{resto.restaurantName}</h5>
-                     <PWrapper>{resto.address}</PWrapper>
+                     <p style={{ marginBottom: "0" }}>{resto.address}</p>
                      <Stars numberOfStars={averageStars(resto.ratings)} />
                      <hr />
                   </div>
@@ -52,7 +54,3 @@ export const Restaurants = () => {
       </div>
    );
 };
-
-const PWrapper = styled.p`
-   margin-bottom: 0;
-`;

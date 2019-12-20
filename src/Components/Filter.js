@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import OptionElt from "./OptionElt";
-// import { Modal } from "@material-ui/core";
+import _ from "lodash";
+// import { Modal, Dialog } from "@material-ui/core";
 
 const Filter = props => {
-   const optionsElts = [];
-   for (let i = 1; i <= props.numberOfOptions; i++) {
-      optionsElts.push(<OptionElt key={i} value={i} number={i} />);
-   }
+   const numberOfOptionsElements = _.range(1, props.numberOfOptions + 1);
+
+   // const [open, setOpen] = React.useState(false);
 
    return (
       <Fragment>
@@ -19,7 +19,9 @@ const Filter = props => {
                className="form-control"
                onChange={props.changed}
             >
-               {optionsElts}
+               {numberOfOptionsElements.map(el => {
+                  return <OptionElt key={el} value={el} number={el} />;
+               })}
             </select>
          </div>
 
@@ -33,9 +35,17 @@ const Filter = props => {
                onChange={props.changed}
                value={props.maxStars} //set the defaultValue
             >
-               {optionsElts}
+               {numberOfOptionsElements.map(el => {
+                  return <OptionElt key={el} value={el} number={el} />;
+               })}
             </select>
          </div>
+
+         {/* <button onClick={() => setOpen(true)}> X </button> */}
+
+         {/* <Dialog open={open} onClose={() => setOpen(false)}>
+            <div>Hello !</div>
+         </Dialog> */}
       </Fragment>
    );
 };
