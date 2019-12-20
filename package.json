@@ -11,6 +11,7 @@
     "react-google-maps": "^9.4.5",
     "react-scripts": "3.3.0",
     "react-stars": "^2.2.5",
+    "react-streetview": "^1.1.1",
     "styled-components": "^4.4.1"
   },
   "scripts": {
