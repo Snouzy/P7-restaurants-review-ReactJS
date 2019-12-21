@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 #api_key
-./src/api_key.js
+src/api_key.js
