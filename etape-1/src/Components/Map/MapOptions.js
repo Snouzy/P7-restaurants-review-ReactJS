@@ -1,73 +1,28 @@
-import React, { Component, useState, Fragment } from "react";
-import Stars from "./Stars";
-import UserIcon from "../imgs/MapMarker_PushPin_Left_Green.svg";
-import { API_KEY } from "../api_key";
-import ReactStreetview from "react-streetview";
-
-import {
-   GoogleMap,
-   withScriptjs,
-   withGoogleMap,
-   Marker,
-   InfoWindow
-} from "react-google-maps";
+import React, { useState, Fragment } from "react";
+//utils libs
+import Stars from "../Stars";
 import _ from "lodash";
-import data from "../data.json";
-import { averageStars } from "../services/libs";
+import ReactStreetview from "react-streetview";
+//Google
+import { GoogleMap, Marker, InfoWindow } from "react-google-maps";
+//utils imports
+import data from "../../data.json";
 import styled from "styled-components";
+import { API_KEY } from "../../api_key";
+//Personal imports
+import { CommentForm } from "../Common/CommentForm";
+import { averageStars } from "../../services/libs";
+import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
 
-class Map extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         coords: {}
-      };
-   }
-
-   componentDidMount() {
-      this.getCurrentLocation();
-   }
-
-   getCurrentLocation() {
-      if (window.navigator && window.navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(pos => {
-            const { latitude, longitude } = pos.coords;
-            console.log("latitude :", latitude, "longitude :", longitude);
-            const coords = {
-               lat: parseFloat(latitude),
-               lng: parseFloat(longitude)
-            };
-            this.setState({ coords });
-         });
-      }
-   }
-
-   render() {
-      const WrappedMap = withScriptjs(
-         withGoogleMap(() => <RenderGoogleMap coords={this.state.coords} />)
-      );
-
-      return (
-         <div className="col-sm-12 col-lg-9" style={{ height: "50%" }}>
-            <WrappedMap
-               googleMapURL={`https://maps.googleapis.com/maps/api/js?3.40.explibraries=geometry,drawing,places&key=${API_KEY}`}
-               loadingElement={<div style={{ height: `100%` }} />}
-               containerElement={<div style={{ height: `700px` }} />}
-               mapElement={<div style={{ height: `100%` }} />}
-            />
-         </div>
-      );
-   }
-}
-
-//Child component
-const RenderGoogleMap = props => {
+export const MapOptions = props => {
    //on recoit les props de la classe Map
    const { coords } = props;
+
+   const [inputValue, setInputValue] = useState({});
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
    const handleClick = index => {
-      //put the selectedRestaurant into the state
+      //put the user's selectedRestaurant into the state
       setSelectedRestaurant(data[index]);
    };
 
@@ -126,7 +81,6 @@ const RenderGoogleMap = props => {
                      <div>
                         {selectedRestaurant.ratings.map((resto, index) => {
                            let i = index + 1; //to not start at 0
-                           console.log(i);
 
                            return (
                               <Fragment key={resto.comment}>
@@ -151,6 +105,11 @@ const RenderGoogleMap = props => {
                            );
                         })}
                      </div>
+                     {/* Comment Form */}
+                     <div>
+                        <CommentForm />
+                     </div>
+
                      <div
                         style={{
                            width: "50rem",
@@ -178,8 +137,6 @@ const RenderGoogleMap = props => {
       </Fragment>
    );
 };
-
-export default Map;
 
 const PWrapper = styled.p`
    margin: 0 10px 0 0;

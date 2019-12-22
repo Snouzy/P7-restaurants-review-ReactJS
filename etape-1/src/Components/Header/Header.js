@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { NavWrapper, ImgWrapper, NavTirdTitle } from "./Header.style";
-import logo from "../imgs/snouzEat128x128_blanc.png";
-// import PStyle from "./Header.style";
+import logo from "../../imgs/snouzEat128x128_blanc.png";
 
 class Header extends Component {
    render() {

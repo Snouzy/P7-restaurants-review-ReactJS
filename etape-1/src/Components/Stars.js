@@ -3,7 +3,7 @@ import ReactStars from "react-stars";
 // import data from "../data.json";
 
 const Stars = props => {
-   const { numberOfStars, isEditable, size } = props;
+   const { numberOfStars, isEditable, size, onGivenNotation } = props;
    return (
       <ReactStars
          count={5}
@@ -12,6 +12,7 @@ const Stars = props => {
          size={size}
          color1={"#ccc"}
          color2={"#ffd701"}
+         onChange={onGivenNotation}
       />
    );
 };

@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
 import OptionElt from "./OptionElt";
 import _ from "lodash";
-// import { Modal, Dialog } from "@material-ui/core";
 
 const Filter = props => {
+   //get an array in order : 1,2,3... till numberOfOption length
    const numberOfOptionsElements = _.range(1, props.numberOfOptions + 1);
-
-   // const [open, setOpen] = React.useState(false);
 
    return (
       <Fragment>
@@ -40,12 +38,6 @@ const Filter = props => {
                })}
             </select>
          </div>
-
-         {/* <button onClick={() => setOpen(true)}> X </button> */}
-
-         {/* <Dialog open={open} onClose={() => setOpen(false)}>
-            <div>Hello !</div>
-         </Dialog> */}
       </Fragment>
    );
 };

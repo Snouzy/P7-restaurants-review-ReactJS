@@ -4,7 +4,6 @@ import Stars from "./Stars";
 import { averageStars } from "../services/libs";
 import Filter from "./Filter";
 import styled from "styled-components";
-
 export const Restaurants = () => {
    const [restaurants, setRestaurants] = React.useState(data);
    const [minimum, setMinimum] = React.useState(null);
