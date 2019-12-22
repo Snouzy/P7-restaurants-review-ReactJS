@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactStars from "react-stars";
-// import data from "../data.json";
 
 const Stars = props => {
    const { numberOfStars, isEditable, size, onGivenNotation } = props;

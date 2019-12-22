@@ -1,4 +1,4 @@
-import React, { Component, useState, Fragment } from "react";
+import React, { Component } from "react";
 import { API_KEY } from "../../api_key";
 import { MapOptions } from "./MapOptions";
 

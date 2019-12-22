@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 //utils libs
-import Stars from "../Stars";
+import Stars from "../Common/Stars";
 import _ from "lodash";
 import ReactStreetview from "react-streetview";
 //Google
