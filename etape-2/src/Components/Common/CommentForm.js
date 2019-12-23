@@ -52,8 +52,8 @@ export const CommentForm = props => {
                Nombre d'étoiles :
                <Stars
                   size={30}
-                  onGivenNotation={e => setNotation(e)} //onChange
-                  numberOfStars={notation} //We give the stars of the user notation
+                  onGivenNotation={props.onGivenNotation} //onChange
+                  numberOfStars={props.numberOfStars} //We give the stars of the user notation
                />
                <TextField
                   margin="none"

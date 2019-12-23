@@ -19,6 +19,7 @@ export const MapOptions = props => {
    const { coords } = props;
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
    const [userComment, setUserComment] = useState(null);
+   const [notation, setNotation] = React.useState(null);
    const comments = [];
 
    const handleClick = index => {
@@ -26,9 +27,8 @@ export const MapOptions = props => {
       setSelectedRestaurant(data[index]);
    };
 
-   const handleChange = e => {
-      setUserComment(e.target.value);
-      console.log(userComment);
+   const handleGivenNotation = e => {
+      console.log(e);
    };
 
    // to put only 1 line on G-maps components props, like : position=formatPosition(arg)
@@ -44,6 +44,8 @@ export const MapOptions = props => {
    };
 
    console.log("Comment array : ", comments);
+   console.log("Notation : ", notation);
+   console.log("userComment :", userComment);
    return (
       <Fragment>
          <GoogleMap defaultZoom={8} defaultCenter={coords}>
@@ -81,6 +83,8 @@ export const MapOptions = props => {
                      {/* Comment Form */}
                      <CommentForm
                         changed={e => setUserComment(e.target.value)}
+                        onGivenNotation={e => setNotation(e)}
+                        numberOfStars={notation}
                      />
 
                      {/* google street-view */}
