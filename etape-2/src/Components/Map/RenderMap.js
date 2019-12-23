@@ -20,7 +20,12 @@ class RenderMap extends Component {
       if (window.navigator && window.navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(pos => {
             const { latitude, longitude } = pos.coords;
-            console.log("latitude :", latitude, "longitude :", longitude);
+            console.log(
+               "latitude :",
+               parseFloat(latitude),
+               "longitude :",
+               parseFloat(longitude)
+            );
             const coords = {
                lat: parseFloat(latitude),
                lng: parseFloat(longitude)

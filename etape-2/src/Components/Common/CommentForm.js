@@ -22,14 +22,6 @@ export const CommentForm = props => {
       setOpen(false);
    };
 
-   //to get the number of stars given
-   const [notation, setNotation] = React.useState(null);
-
-   const [userComment, setUserComment] = React.useState(null);
-   React.useEffect(() => {
-      console.log(userComment);
-   }, [userComment, setUserComment]);
-
    return (
       <div>
          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -70,7 +62,7 @@ export const CommentForm = props => {
                <Button color="primary" onClick={e => handleClose(e)}>
                   Fermer
                </Button>
-               <Button color="primary" onClick={handleClose}>
+               <Button color="primary" onClick={props.onSend}>
                   Envoyer
                </Button>
             </DialogActions>

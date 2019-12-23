@@ -11,6 +11,7 @@ import { API_KEY } from "../../api_key";
 //Personal imports
 import { CommentForm } from "../Common/CommentForm";
 import { UsersReviews } from "../UsersReviews";
+import { UserReview } from "../UserReview";
 import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
 import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
 
@@ -18,17 +19,13 @@ export const MapOptions = props => {
    //on recoit les props de la classe Map
    const { coords } = props;
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-   const [userComment, setUserComment] = useState(null);
+   const [userComment, setUserComment] = useState("");
    const [notation, setNotation] = React.useState(null);
-   const comments = [];
+   const [isSend, setSending] = React.useState(false);
 
    const handleClick = index => {
       //put the user's selectedRestaurant into the state
       setSelectedRestaurant(data[index]);
-   };
-
-   const handleGivenNotation = e => {
-      console.log(e);
    };
 
    // to put only 1 line on G-maps components props, like : position=formatPosition(arg)
@@ -38,14 +35,26 @@ export const MapOptions = props => {
          lng: restaurant.long
       };
    };
+   const handleSend = () => {
+      if (notation !== null && userComment !== "") {
+         selectedRestaurant.ratings.push({
+            stars: notation,
+            comment: userComment
+         });
+         setSending(true); //force re-rendering to display the comment
 
-   const addingComment = (numberOfStars, text) => {
-      comments.push({ numberOfStars, text });
+         //restoring the inital state
+         setNotation(null);
+         setUserComment("");
+         console.log("HandleSend notation : ", notation);
+         console.log("HandleSend userComment : ", userComment);
+      } else {
+         alert(
+            "Merci de donner une notation d'abord sous forme d'étoiles, et ensuite sous forme de commentaire ! "
+         );
+      }
    };
 
-   console.log("Comment array : ", comments);
-   console.log("Notation : ", notation);
-   console.log("userComment :", userComment);
    return (
       <Fragment>
          <GoogleMap defaultZoom={8} defaultCenter={coords}>
@@ -78,15 +87,29 @@ export const MapOptions = props => {
                      <HeaderOfTheWindowSection
                         selectedRestaurant={selectedRestaurant}
                      />
-                     <UsersReviews selectedRestaurant={selectedRestaurant} />
+                     {selectedRestaurant.ratings.map((restaurant, index) => {
+                        return (
+                           <div key={restaurant.comment}>
+                              <UserReview
+                                 resto={restaurant}
+                                 numero={index + 1}
+                              />
+                           </div>
+                        );
+                     })}
 
+                     {/* {comments.map(restaurant, index) => {
+
+                     }} */}
+
+                     {/* <UsersReviews selectedRestaurant={selectedRestaurant} /> */}
                      {/* Comment Form */}
                      <CommentForm
                         changed={e => setUserComment(e.target.value)}
                         onGivenNotation={e => setNotation(e)}
                         numberOfStars={notation}
+                        onSend={handleSend}
                      />
-
                      {/* google street-view */}
                      <DivStreetView>
                         <h5>Aperçu :</h5>
