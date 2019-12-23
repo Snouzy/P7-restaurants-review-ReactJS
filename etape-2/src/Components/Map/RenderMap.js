@@ -20,12 +20,7 @@ class RenderMap extends Component {
       if (window.navigator && window.navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(pos => {
             const { latitude, longitude } = pos.coords;
-            console.log(
-               "latitude :",
-               parseFloat(latitude),
-               "longitude :",
-               parseFloat(longitude)
-            );
+            // console.log("latitude :", latitude, "longitude :", longitude);
             const coords = {
                lat: parseFloat(latitude),
                lng: parseFloat(longitude)
@@ -36,6 +31,7 @@ class RenderMap extends Component {
    }
 
    render() {
+      // console.log("<RenderMap /> this.state.coords ", this.state.coords);
       const WrappedMap = withScriptjs(
          withGoogleMap(() => <MapOptions coords={this.state.coords} />)
       );

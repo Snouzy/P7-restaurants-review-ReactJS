@@ -45,7 +45,7 @@ export const CommentForm = props => {
                <Stars
                   size={30}
                   onGivenNotation={props.onGivenNotation} //onChange
-                  numberOfStars={props.numberOfStars} //We give the stars of the user notation
+                  numberOfStars={props.numberOfStars} //Give the stars of the user notation
                />
                <TextField
                   margin="none"
@@ -54,7 +54,6 @@ export const CommentForm = props => {
                   type="text"
                   color="primary"
                   fullWidth
-                  // onChange={e => setUserComment(e.target.value)}
                   onChange={props.changed}
                />
             </DialogContent>

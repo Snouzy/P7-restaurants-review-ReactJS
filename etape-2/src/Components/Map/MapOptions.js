@@ -10,14 +10,12 @@ import data from "../../data.json";
 import { API_KEY } from "../../api_key";
 //Personal imports
 import { CommentForm } from "../Common/CommentForm";
-import { UsersReviews } from "../UsersReviews";
 import { UserReview } from "../UserReview";
 import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
 import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
 
 export const MapOptions = props => {
    //on recoit les props de la classe Map
-   const { coords } = props;
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
    const [userComment, setUserComment] = useState("");
    const [notation, setNotation] = React.useState(null);
@@ -54,10 +52,10 @@ export const MapOptions = props => {
          );
       }
    };
-
+   // console.log(props); to test the DefaultCenter of the map
    return (
       <Fragment>
-         <GoogleMap defaultZoom={8} defaultCenter={coords}>
+         <GoogleMap defaultZoom={8} defaultCenter={props.coords}>
             {/* display the markers */}
             {data.map((resto, index) => {
                return (
@@ -70,7 +68,7 @@ export const MapOptions = props => {
             })}
             <Marker
                key="userPosition"
-               position={coords}
+               position={props.coords}
                icon={{
                   url: UserIcon,
                   scaledSize: new window.google.maps.Size(40, 40)
