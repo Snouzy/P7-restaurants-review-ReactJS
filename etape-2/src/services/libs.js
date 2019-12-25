@@ -8,6 +8,13 @@ export const average = arr => {
    );
 };
 
+// to put only 1 line on G-maps components props, like : position=formatPosition(arg)
+export const formatPosition = restaurant => {
+   return {
+      lat: restaurant.lat,
+      lng: restaurant.long
+   };
+};
 export const averageStars = thingsToCalculate => {
    const arrayOfThingsToCalculate = [];
    for (let i = 0; i < thingsToCalculate.length; i++) {

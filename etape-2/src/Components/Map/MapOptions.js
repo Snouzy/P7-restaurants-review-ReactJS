@@ -7,11 +7,13 @@ import styled from "styled-components";
 import { GoogleMap, Marker, InfoWindow } from "react-google-maps";
 //utils imports
 import data from "../../data.json";
+import { formatPosition } from "../../services/libs";
 import { API_KEY } from "../../api_key";
 //Personal imports
-import { CommentForm } from "../Common/CommentForm";
-import { UserReview } from "../UserReview";
 import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
+import { CommentForm } from "../Common/CommentForm";
+import AddingRestaurantForm from "../Common/AddingRestaurantForm";
+import { UserReview } from "../UserReview";
 import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
 
 export const MapOptions = props => {
@@ -20,19 +22,39 @@ export const MapOptions = props => {
    const [userComment, setUserComment] = useState("");
    const [notation, setNotation] = React.useState(null);
    const [isSend, setSending] = React.useState(false);
+   const [isRightClicked, setRightClick] = React.useState(false);
+   const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState("");
+   const [posOfTheRestaurant, setPosOfTheRestaurant] = React.useState(null);
 
+   // on click on one of the markers
    const handleClick = index => {
       //put the user's selectedRestaurant into the state
       setSelectedRestaurant(data[index]);
    };
 
-   // to put only 1 line on G-maps components props, like : position=formatPosition(arg)
-   const formatPosition = restaurant => {
-      return {
-         lat: restaurant.lat,
-         lng: restaurant.long
-      };
+   // when the user click the close button of the Restaurant adding's form
+   const handleClose = () => {
+      setRightClick(false); //close the modal
    };
+
+   // when a user right click on the map to add a new restaurant
+   const handleRightClick = e => {
+      setRightClick(true);
+      const lat = e.latLng.lat();
+      const lng = e.latLng.lng();
+      setPosOfTheRestaurant([lat, lng]);
+   };
+   // then, the component will re - render with the new values :
+   React.useEffect(() => {
+      console.log("hello");
+      console.log(posOfTheRestaurant);
+   }, [posOfTheRestaurant]);
+
+   const handleAdded = () => {
+      console.log(NameOfTheRestaurant);
+   };
+
+   //when the user clicked on "envoyer"
    const handleSend = () => {
       if (notation !== null && userComment !== "") {
          selectedRestaurant.ratings.push({
@@ -55,7 +77,19 @@ export const MapOptions = props => {
    // console.log(props); to test the DefaultCenter of the map
    return (
       <Fragment>
-         <GoogleMap defaultZoom={8} defaultCenter={props.coords}>
+         {isRightClicked && (
+            <AddingRestaurantForm
+               isRightClicked={isRightClicked}
+               onSend={handleAdded}
+               handleClose={handleClose}
+               changed={e => setNameOfTheRestaurant(e.target.value)}
+            />
+         )}
+         <GoogleMap
+            defaultZoom={8}
+            defaultCenter={props.coords}
+            onRightClick={e => handleRightClick(e)}
+         >
             {/* display the markers */}
             {data.map((resto, index) => {
                return (
@@ -96,11 +130,6 @@ export const MapOptions = props => {
                         );
                      })}
 
-                     {/* {comments.map(restaurant, index) => {
-
-                     }} */}
-
-                     {/* <UsersReviews selectedRestaurant={selectedRestaurant} /> */}
                      {/* Comment Form */}
                      <CommentForm
                         changed={e => setUserComment(e.target.value)}
