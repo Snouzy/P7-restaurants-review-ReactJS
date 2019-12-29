@@ -4,7 +4,7 @@ import Header from "./Components/Header/Header";
 import RenderMap from "./Components/Map/RenderMap";
 import { Restaurants } from "./Components/Restaurants";
 
-function App() {
+const App = () => {
    return (
       <div>
          <Header />
@@ -16,6 +16,6 @@ function App() {
          </div>
       </div>
    );
-}
+};
 
 export default App;

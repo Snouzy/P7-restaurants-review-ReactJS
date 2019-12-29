@@ -8,7 +8,7 @@ class RenderMap extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         coords: {}
+         coords: {} //mettre les coordonnées de paris
       };
    }
 
@@ -31,7 +31,6 @@ class RenderMap extends Component {
    }
 
    render() {
-      // console.log("<RenderMap /> this.state.coords ", this.state.coords);
       const WrappedMap = withScriptjs(
          withGoogleMap(() => <MapOptions coords={this.state.coords} />)
       );

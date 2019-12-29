@@ -39,14 +39,18 @@ export const MapOptions = props => {
 
    // when a user right click on the map to add a new restaurant
    const handleRightClick = e => {
+      console.log(e);
       setRightClick(true);
       const lat = e.latLng.lat();
       const lng = e.latLng.lng();
       setPosOfTheRestaurant([lat, lng]);
    };
+
    // then, the component will re - render with the new values :
    React.useEffect(() => {
-      console.log("hello");
+      console.log(
+         "hello from the useEffect who depends of [posOfTheRestaurant]"
+      );
       console.log(posOfTheRestaurant);
    }, [posOfTheRestaurant]);
 
@@ -61,7 +65,6 @@ export const MapOptions = props => {
             stars: notation,
             comment: userComment
          });
-         setSending(true); //force re-rendering to display the comment
 
          //restoring the inital state
          setNotation(null);
@@ -74,7 +77,8 @@ export const MapOptions = props => {
          );
       }
    };
-   // console.log(props); to test the DefaultCenter of the map
+
+   console.log(props);
    return (
       <Fragment>
          {isRightClicked && (
@@ -88,7 +92,7 @@ export const MapOptions = props => {
          <GoogleMap
             defaultZoom={8}
             defaultCenter={props.coords}
-            onRightClick={e => handleRightClick(e)}
+            onRightClick={handleRightClick}
          >
             {/* display the markers */}
             {data.map((resto, index) => {
@@ -100,14 +104,18 @@ export const MapOptions = props => {
                   />
                );
             })}
-            <Marker
-               key="userPosition"
-               position={props.coords}
-               icon={{
-                  url: UserIcon,
-                  scaledSize: new window.google.maps.Size(40, 40)
-               }}
-            />
+
+            {/* verifie si les props sont existantes pour montrer le marker du user */}
+            {props.coords.lng && (
+               <Marker
+                  key="userPosition"
+                  position={props.coords}
+                  icon={{
+                     url: UserIcon,
+                     scaledSize: new window.google.maps.Size(40, 40)
+                  }}
+               />
+            )}
             {/* If the user clicked on a restaurant, display the google window : */}
             {selectedRestaurant && (
                <InfoWindow
