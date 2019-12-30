@@ -5,9 +5,10 @@ import Stars from "./Common/Stars";
 import { averageStars } from "../services/libs";
 class RestaurantRedux extends Component {
    //push all the restaurant into the store
-   componentWillMount() {
-      this.props.fetchRestaurants();
-   }
+   // componentWillMount() {
+   //    this.props.fetchRestaurants();
+   // }
+
    renderRestaurant() {
       if (this.props.restaurants) {
          return (
@@ -38,7 +39,7 @@ class RestaurantRedux extends Component {
 //getting-read the store
 const mapStateToProps = store => {
    return {
-      restaurants: store.restoReducer.restoReducer
+      restaurants: store.restoReducer
    };
 };
 

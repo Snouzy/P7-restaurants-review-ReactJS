@@ -5,7 +5,7 @@ export default function(restaurantReducer = data, action) {
       case "ADD_RESTAURANT":
          return {
             ...restaurantReducer,
-            restoReducer: action.payload
+            restaurantReducer: action.payload
          };
    }
    return restaurantReducer;
