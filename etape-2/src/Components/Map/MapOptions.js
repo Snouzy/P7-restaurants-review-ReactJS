@@ -47,12 +47,9 @@ export const MapOptions = props => {
    };
 
    // then, the component will re - render with the new values :
-   React.useEffect(() => {
-      console.log(
-         "hello from the useEffect who depends of [posOfTheRestaurant]"
-      );
-      console.log(posOfTheRestaurant);
-   }, [posOfTheRestaurant]);
+   // React.useEffect(() => {
+   //    console.log(posOfTheRestaurant);
+   // }, [posOfTheRestaurant]);
 
    const handleAdded = () => {
       console.log(NameOfTheRestaurant);
@@ -78,7 +75,7 @@ export const MapOptions = props => {
       }
    };
 
-   console.log(props);
+   // console.log(props);
    return (
       <Fragment>
          {isRightClicked && (
