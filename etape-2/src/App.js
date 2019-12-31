@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./Components/Header/Header";
 import RenderMap from "./Components/Map/RenderMap";
 import Restaurants from "./Components/Restaurants";
+import RestaurantDeux from "./Components/RestaurantDeux";
 import RestaurantRedux from "./Components/RestaurantsRedux";
 
 const App = () => {
@@ -10,10 +11,10 @@ const App = () => {
       <div>
          <Header />
          <div className="container-fluid">
+            <RestaurantRedux />
             <div className="row">
-               <RestaurantRedux />
                <RenderMap />
-               <Restaurants />
+               <RestaurantDeux />
             </div>
          </div>
       </div>
