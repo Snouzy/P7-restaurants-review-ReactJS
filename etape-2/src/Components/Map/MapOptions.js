@@ -1,6 +1,8 @@
 import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
+import { fetchRestaurants } from "../../actions";
 //utils libs
+import { formatPosition } from "../../services/libs";
 import _ from "lodash";
 import ReactStreetview from "react-streetview";
 import styled from "styled-components";
@@ -8,7 +10,6 @@ import styled from "styled-components";
 import { GoogleMap, Marker, InfoWindow } from "react-google-maps";
 //utils imports
 import data from "../../data.json";
-import { formatPosition } from "../../services/libs";
 import { API_KEY } from "../../api_key";
 //Personal imports
 import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
@@ -22,12 +23,7 @@ export const MapOptions = props => {
    console.log(props);
    // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
    Geocode.setApiKey(API_KEY);
-
-   // set response language. Defaults to english.
    Geocode.setLanguage("fr");
-
-   // set response region. Its optional.
-   // A Geocoding request with region=es (Spain) will return the Spanish city.
    Geocode.setRegion("fr");
 
    //on recoit les props de la classe Map
@@ -78,10 +74,15 @@ export const MapOptions = props => {
       }
    }, [posOfTheRestaurant]);
 
+   // when a user "click" on "ajouter un restaurant"
    const handleAdded = () => {
       console.log(NameOfTheRestaurant);
       console.log(addressOfTheRestaurant);
-      formatRestaurant(NameOfTheRestaurant, addressOfTheRestaurant);
+      const addedRestaurant = formatRestaurant(
+         NameOfTheRestaurant,
+         addressOfTheRestaurant
+      );
+      props.fetchRestaurants(addedRestaurant);
    };
 
    const formatRestaurant = (name, address) => {
@@ -207,8 +208,11 @@ const mapStateToProps = store => {
       restaurantsFiltered: store.restoFilter.newRestaurants
    };
 };
+const mapDipatchToProps = {
+   fetchRestaurants
+};
 
-export default connect(mapStateToProps)(MapOptions);
+export default connect(mapStateToProps, mapDipatchToProps)(MapOptions);
 
 const DivStreetView = styled.div`
    width: 50rem;
