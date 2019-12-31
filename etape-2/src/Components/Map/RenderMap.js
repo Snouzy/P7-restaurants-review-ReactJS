@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API_KEY } from "../../api_key";
-import { MapOptions } from "./MapOptions";
+import MapOptions from "./MapOptions";
 
 import { withScriptjs, withGoogleMap } from "react-google-maps";
 import _ from "lodash";

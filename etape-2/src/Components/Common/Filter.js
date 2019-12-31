@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import OptionElt from "./Common/OptionElt";
+import OptionElt from "./OptionElt";
 import _ from "lodash";
 
 const Filter = props => {

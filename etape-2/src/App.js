@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./Components/Header/Header";
 import RenderMap from "./Components/Map/RenderMap";
 import Restaurants from "./Components/Restaurants";
-import RestaurantDeux from "./Components/RestaurantDeux";
+import RestaurantDeux from "./Components/Containers/RestaurantDeux";
 import RestaurantRedux from "./Components/RestaurantsRedux";
 
 const App = () => {

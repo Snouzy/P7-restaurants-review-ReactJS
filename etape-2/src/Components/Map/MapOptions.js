@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
 //utils libs
 import _ from "lodash";
 import ReactStreetview from "react-streetview";
@@ -13,10 +14,22 @@ import { API_KEY } from "../../api_key";
 import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
 import { CommentForm } from "../Common/CommentForm";
 import AddingRestaurantForm from "../Common/AddingRestaurantForm";
-import { UserReview } from "../UserReview";
+import { UserReview } from "../Common/UserReview";
 import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
+import Geocode from "react-geocode";
 
 export const MapOptions = props => {
+   console.log(props);
+   // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+   Geocode.setApiKey(API_KEY);
+
+   // set response language. Defaults to english.
+   Geocode.setLanguage("fr");
+
+   // set response region. Its optional.
+   // A Geocoding request with region=es (Spain) will return the Spanish city.
+   Geocode.setRegion("fr");
+
    //on recoit les props de la classe Map
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
    const [userComment, setUserComment] = useState("");
@@ -25,6 +38,9 @@ export const MapOptions = props => {
    const [isRightClicked, setRightClick] = React.useState(false);
    const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState("");
    const [posOfTheRestaurant, setPosOfTheRestaurant] = React.useState(null);
+   const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
+      ""
+   );
 
    // on click on one of the markers
    const handleClick = index => {
@@ -39,7 +55,6 @@ export const MapOptions = props => {
 
    // when a user right click on the map to add a new restaurant
    const handleRightClick = e => {
-      console.log(e);
       setRightClick(true);
       const lat = e.latLng.lat();
       const lng = e.latLng.lng();
@@ -47,12 +62,37 @@ export const MapOptions = props => {
    };
 
    // then, the component will re - render with the new values :
-   // React.useEffect(() => {
-   //    console.log(posOfTheRestaurant);
-   // }, [posOfTheRestaurant]);
+   React.useEffect(() => {
+      console.log(posOfTheRestaurant);
+      if (posOfTheRestaurant) {
+         Geocode.fromLatLng(posOfTheRestaurant[0], posOfTheRestaurant[1]).then(
+            response => {
+               const address = response.results[0].formatted_address;
+               setAddressOfTheRestaurant(address);
+               console.log(address);
+            },
+            error => {
+               console.error(error);
+            }
+         );
+      }
+   }, [posOfTheRestaurant]);
 
    const handleAdded = () => {
       console.log(NameOfTheRestaurant);
+      console.log(addressOfTheRestaurant);
+      formatRestaurant(NameOfTheRestaurant, addressOfTheRestaurant);
+   };
+
+   const formatRestaurant = (name, address) => {
+      return {
+         id: props.restaurants.length + 1,
+         restaurantName: name,
+         address: address,
+         lat: posOfTheRestaurant[0],
+         lng: posOfTheRestaurant[1],
+         ratings: []
+      };
    };
 
    //when the user clicked on "envoyer"
@@ -161,6 +201,14 @@ export const MapOptions = props => {
       </Fragment>
    );
 };
+const mapStateToProps = store => {
+   return {
+      restaurants: store.restoReducer,
+      restaurantsFiltered: store.restoFilter.newRestaurants
+   };
+};
+
+export default connect(mapStateToProps)(MapOptions);
 
 const DivStreetView = styled.div`
    width: 50rem;

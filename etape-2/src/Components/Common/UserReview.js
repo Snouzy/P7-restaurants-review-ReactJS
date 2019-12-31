@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import Stars from "./Common/Stars";
+import Stars from "./Stars";
 
 export const UserReview = props => {
    const { numero, resto } = props;

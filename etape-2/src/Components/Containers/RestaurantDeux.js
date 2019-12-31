@@ -1,10 +1,10 @@
 import React from "react";
-import { fetchRestaurants, filterRestaurants } from "../actions";
+import { fetchRestaurants, filterRestaurants } from "../../actions";
 import { connect } from "react-redux";
-import data from "../data.json";
-import Stars from "./Common/Stars";
-import { averageStars } from "../services/libs";
-import Filter from "./Filter";
+import data from "../../data.json";
+import Stars from "../Common/Stars";
+import { averageStars } from "../../services/libs";
+import Filter from "../Common/Filter";
 
 const RestaurantDeux = props => {
    const { restaurants, restaurantsFiltered } = props; //from redux

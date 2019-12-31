@@ -2,7 +2,7 @@ import React from "react";
 import data from "../data.json";
 import Stars from "./Common/Stars";
 import { averageStars } from "../services/libs";
-import Filter from "./Filter";
+import Filter from "./Common/Filter";
 
 const Restaurants = () => {
    const [restaurants, setRestaurants] = React.useState(data);
