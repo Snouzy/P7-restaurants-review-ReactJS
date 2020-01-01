@@ -22,7 +22,8 @@ const AddingRestaurantForm = props => {
          <DialogContent>
             <DialogContentText>
                Ici, vous pouvez ajouter un restaurant. Merci d'être le plus
-               précis possible.
+               précis possible. Attention, votre restaurant n'aura aucune étoile
+               à son ajout.
             </DialogContentText>
             <TextField
                margin="none"

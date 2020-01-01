@@ -11,3 +11,9 @@ export function filterRestaurants(args) {
       dispatch({ type: "FILTER_RESTAURANTS", payload: args });
    };
 }
+
+export function isAdded(arg) {
+   return function(dispatch) {
+      dispatch({ type: "IS_ADDED", payload: arg });
+   };
+}

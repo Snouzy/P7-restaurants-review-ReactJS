@@ -11,7 +11,6 @@ const App = () => {
       <div>
          <Header />
          <div className="container-fluid">
-            <RestaurantRedux />
             <div className="row">
                <RenderMap />
                <RestaurantDeux />

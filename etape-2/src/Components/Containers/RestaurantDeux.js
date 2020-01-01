@@ -1,7 +1,6 @@
 import React from "react";
-import { fetchRestaurants, filterRestaurants } from "../../actions";
+import { filterRestaurants, isAdded } from "../../actions";
 import { connect } from "react-redux";
-import data from "../../data.json";
 import Stars from "../Common/Stars";
 import { averageStars } from "../../services/libs";
 import Filter from "../Common/Filter";
@@ -74,13 +73,14 @@ const RestaurantDeux = props => {
 const mapStateToProps = store => {
    return {
       restaurants: store.restoReducer,
-      restaurantsFiltered: store.restoFilter.newRestaurants
+      restaurantsFiltered: store.restoFilter.newRestaurants,
+      restaurantAddingFormSended: store.isAdded
    };
 };
 
 //push-modify the store
 const mapDipatchToProps = {
-   fetchRestaurants,
-   filterRestaurants
+   filterRestaurants,
+   isAdded
 };
 export default connect(mapStateToProps, mapDipatchToProps)(RestaurantDeux);
