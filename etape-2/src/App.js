@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import Header from "./Components/Header/Header";
-import RenderMap from "./Components/Map/RenderMap";
+import Header from "./Components/Headers/Header";
+import RenderMap from "./Components/RenderMap";
 import Restaurants from "./Components/Containers/Restaurants";
 
 const App = () => {

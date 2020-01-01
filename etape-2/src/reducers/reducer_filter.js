@@ -5,6 +5,7 @@ export default function(filterReducer = [], action) {
             ...filterReducer,
             newRestaurants: action.payload
          };
+      default:
+         return filterReducer;
    }
-   return filterReducer;
 }

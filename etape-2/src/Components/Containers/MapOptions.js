@@ -12,9 +12,9 @@ import { GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import data from "../../data.json";
 import { API_KEY } from "../../api_key";
 //Personal imports
-import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
-import { CommentForm } from "../Common/CommentForm";
-import AddingRestaurantForm from "../Common/AddingRestaurantForm";
+import { HeaderOfTheWindowSection } from "../Headers/HeaderRestaurantsModal";
+import { CommentForm } from "../Forms/CommentForm";
+import AddingRestaurantForm from "../Forms/AddingRestaurantForm";
 import { UserReview } from "../Common/UserReview";
 import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
 import Geocode from "react-geocode";
