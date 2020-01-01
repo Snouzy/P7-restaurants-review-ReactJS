@@ -12,8 +12,8 @@ export function filterRestaurants(args) {
    };
 }
 
-export function isAdded(arg) {
+export function commentsFlag(arg) {
    return function(dispatch) {
-      dispatch({ type: "IS_ADDED", payload: arg });
+      dispatch({ type: "COMMENTS_FLAG", payload: arg });
    };
 }

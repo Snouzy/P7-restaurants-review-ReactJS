@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
-import { fetchRestaurants } from "../../actions";
+import { fetchRestaurants, commentsFlag } from "../../actions";
 //utils libs
 import { formatPosition } from "../../services/libs";
 import _ from "lodash";
@@ -20,7 +20,6 @@ import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
 import Geocode from "react-geocode";
 
 export const MapOptions = props => {
-   console.log("Le composant MapOptions a été re-rendu !");
    // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
    Geocode.setApiKey(API_KEY);
    Geocode.setLanguage("fr");
@@ -30,7 +29,6 @@ export const MapOptions = props => {
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
    const [userComment, setUserComment] = useState("");
    const [notation, setNotation] = React.useState(null);
-   const [isSend, setSending] = React.useState(false);
    const [isRightClicked, setRightClick] = React.useState(false);
    const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState("");
    const [posOfTheRestaurant, setPosOfTheRestaurant] = React.useState(null);
@@ -96,20 +94,15 @@ export const MapOptions = props => {
    const handleSend = () => {
       console.log(selectedRestaurant);
       console.log(props.restaurants);
-      // if (notation !== null && userComment !== "") {
-      //    props.restaurants
-      //       .find(resto => resto.id === selectedRestaurant.id)
-      //       .ratings.push({
-      //          stars: notation,
-      //          comment: userComment
-      //       });
-      // }
-
       if (notation !== null && userComment !== "") {
          selectedRestaurant.ratings.push({
             stars: notation,
             comment: userComment
          });
+         //used to re - render the list of the restaurants
+         //on met le fichier restaurant qui se re - rend quand cette valeur change
+         //= quand un user envoie un nouvel avis, il est directement intégré.
+         props.commentsFlag(!props.stateCommentsFlag);
 
          //restoring the inital state
          setNotation(null);
@@ -123,7 +116,6 @@ export const MapOptions = props => {
       }
    };
 
-   console.log(props);
    return (
       <Fragment>
          {isRightClicked && (
@@ -212,11 +204,13 @@ export const MapOptions = props => {
 const mapStateToProps = store => {
    return {
       restaurants: store.restoReducer,
-      restaurantsFiltered: store.restoFilter.newRestaurants
+      restaurantsFiltered: store.restoFilter.newRestaurants,
+      stateCommentsFlag: store.commentsFlag
    };
 };
 const mapDipatchToProps = {
-   fetchRestaurants
+   fetchRestaurants,
+   commentsFlag
 };
 
 export default connect(mapStateToProps, mapDipatchToProps)(MapOptions);

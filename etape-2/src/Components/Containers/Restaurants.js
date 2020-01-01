@@ -1,11 +1,11 @@
 import React from "react";
-import { filterRestaurants, isAdded } from "../../actions";
+import { filterRestaurants, commentsFlag } from "../../actions";
 import { connect } from "react-redux";
 import Stars from "../Common/Stars";
 import { averageStars } from "../../services/libs";
 import Filter from "../Common/Filter";
 
-const RestaurantDeux = props => {
+const Restaurants = props => {
    const { restaurants, restaurantsFiltered } = props; //from redux
    const [minimum, setMinimum] = React.useState(0); // min filter = 1
    const [maximum, setMaximum] = React.useState(5); // max filter = 5
@@ -35,7 +35,7 @@ const RestaurantDeux = props => {
       });
       // pushing ones which correspond to the filter into the state
       props.filterRestaurants(restos);
-   }, [minimum, maximum, restaurants]); //changing when filtered or restaurants store change
+   }, [minimum, maximum, restaurants, props.commentsFlag]); //changing when filtered or restaurants store change
 
    return (
       <div className="row col-sm-12 col-lg-3">
@@ -74,13 +74,13 @@ const mapStateToProps = store => {
    return {
       restaurants: store.restoReducer,
       restaurantsFiltered: store.restoFilter.newRestaurants,
-      restaurantAddingFormSended: store.isAdded
+      commentsFlag: store.commentsFlag
    };
 };
 
 //push-modify the store
 const mapDipatchToProps = {
    filterRestaurants,
-   isAdded
+   commentsFlag
 };
-export default connect(mapStateToProps, mapDipatchToProps)(RestaurantDeux);
+export default connect(mapStateToProps, mapDipatchToProps)(Restaurants);
