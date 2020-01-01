@@ -1,5 +1,8 @@
 import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
+import { fetchRestaurants, commentsFlag } from "../../actions";
 //utils libs
+import { formatPosition } from "../../services/libs";
 import _ from "lodash";
 import ReactStreetview from "react-streetview";
 import styled from "styled-components";
@@ -7,29 +10,36 @@ import styled from "styled-components";
 import { GoogleMap, Marker, InfoWindow } from "react-google-maps";
 //utils imports
 import data from "../../data.json";
-import { formatPosition } from "../../services/libs";
 import { API_KEY } from "../../api_key";
 //Personal imports
 import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
 import { CommentForm } from "../Common/CommentForm";
 import AddingRestaurantForm from "../Common/AddingRestaurantForm";
-import { UserReview } from "../UserReview";
+import { UserReview } from "../Common/UserReview";
 import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
+import Geocode from "react-geocode";
 
 export const MapOptions = props => {
+   // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+   Geocode.setApiKey(API_KEY);
+   Geocode.setLanguage("fr");
+   Geocode.setRegion("fr");
+
    //on recoit les props de la classe Map
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
    const [userComment, setUserComment] = useState("");
    const [notation, setNotation] = React.useState(null);
-   const [isSend, setSending] = React.useState(false);
    const [isRightClicked, setRightClick] = React.useState(false);
    const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState("");
    const [posOfTheRestaurant, setPosOfTheRestaurant] = React.useState(null);
+   const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
+      ""
+   );
 
    // on click on one of the markers
    const handleClick = index => {
       //put the user's selectedRestaurant into the state
-      setSelectedRestaurant(data[index]);
+      setSelectedRestaurant(props.restaurants[index]);
    };
 
    // when the user click the close button of the Restaurant adding's form
@@ -39,7 +49,6 @@ export const MapOptions = props => {
 
    // when a user right click on the map to add a new restaurant
    const handleRightClick = e => {
-      console.log(e);
       setRightClick(true);
       const lat = e.latLng.lat();
       const lng = e.latLng.lng();
@@ -48,23 +57,52 @@ export const MapOptions = props => {
 
    // then, the component will re - render with the new values :
    React.useEffect(() => {
-      console.log(
-         "hello from the useEffect who depends of [posOfTheRestaurant]"
-      );
-      console.log(posOfTheRestaurant);
+      if (posOfTheRestaurant) {
+         Geocode.fromLatLng(posOfTheRestaurant[0], posOfTheRestaurant[1]).then(
+            response => {
+               const address = response.results[0].formatted_address;
+               setAddressOfTheRestaurant(address);
+            },
+            error => {
+               console.error(error);
+            }
+         );
+      }
    }, [posOfTheRestaurant]);
 
+   // when a user "click" on "ajouter un restaurant"
    const handleAdded = () => {
-      console.log(NameOfTheRestaurant);
+      const addedRestaurant = formatRestaurant(
+         NameOfTheRestaurant,
+         addressOfTheRestaurant
+      );
+      props.fetchRestaurants(addedRestaurant);
+   };
+
+   const formatRestaurant = (name, address) => {
+      return {
+         id: props.restaurants.length + 1,
+         restaurantName: name,
+         address: address,
+         lat: posOfTheRestaurant[0],
+         long: posOfTheRestaurant[1],
+         ratings: []
+      };
    };
 
    //when the user clicked on "envoyer"
    const handleSend = () => {
+      console.log(selectedRestaurant);
+      console.log(props.restaurants);
       if (notation !== null && userComment !== "") {
          selectedRestaurant.ratings.push({
             stars: notation,
             comment: userComment
          });
+         //used to re - render the list of the restaurants
+         //on met le fichier restaurant qui se re - rend quand cette valeur change
+         //= quand un user envoie un nouvel avis, il est directement intégré.
+         props.commentsFlag(!props.stateCommentsFlag);
 
          //restoring the inital state
          setNotation(null);
@@ -78,7 +116,6 @@ export const MapOptions = props => {
       }
    };
 
-   console.log(props);
    return (
       <Fragment>
          {isRightClicked && (
@@ -95,7 +132,7 @@ export const MapOptions = props => {
             onRightClick={handleRightClick}
          >
             {/* display the markers */}
-            {data.map((resto, index) => {
+            {props.restaurants.map((resto, index) => {
                return (
                   <Marker
                      key={resto.restaurantName}
@@ -164,6 +201,19 @@ export const MapOptions = props => {
       </Fragment>
    );
 };
+const mapStateToProps = store => {
+   return {
+      restaurants: store.restoReducer,
+      restaurantsFiltered: store.restoFilter.newRestaurants,
+      stateCommentsFlag: store.commentsFlag
+   };
+};
+const mapDipatchToProps = {
+   fetchRestaurants,
+   commentsFlag
+};
+
+export default connect(mapStateToProps, mapDipatchToProps)(MapOptions);
 
 const DivStreetView = styled.div`
    width: 50rem;

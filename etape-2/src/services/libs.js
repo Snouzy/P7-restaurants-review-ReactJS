@@ -15,11 +15,13 @@ export const formatPosition = restaurant => {
       lng: restaurant.long
    };
 };
+
 export const averageStars = thingsToCalculate => {
    const arrayOfThingsToCalculate = [];
    for (let i = 0; i < thingsToCalculate.length; i++) {
       arrayOfThingsToCalculate.push(thingsToCalculate[i].stars);
    }
+
    return (
       arrayOfThingsToCalculate.reduce(function(a, b) {
          //a = accumulator // b = current value

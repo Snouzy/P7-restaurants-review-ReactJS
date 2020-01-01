@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import OptionElt from "./Common/OptionElt";
+import OptionElt from "./OptionElt";
 import _ from "lodash";
 
 const Filter = props => {
    //get an array in order : 1,2,3... till numberOfOption length
-   const numberOfOptionsElements = _.range(1, props.numberOfOptions + 1);
+   const numberOfOptionsElements = _.range(0, props.numberOfOptions + 1);
 
    return (
       <Fragment>
