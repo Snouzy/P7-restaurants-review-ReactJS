@@ -6,6 +6,7 @@ export default function(restaurantReducer = data, action) {
          const oldRestaurants = [...restaurantReducer];
          oldRestaurants.push(action.payload);
          return oldRestaurants;
+      default:
+         return restaurantReducer;
    }
-   return restaurantReducer;
 }

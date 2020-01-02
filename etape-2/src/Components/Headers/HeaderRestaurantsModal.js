@@ -1,25 +1,25 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import { averageStars } from "../../services/libs";
 import Stars from "../Common/Stars";
-export const HeaderOfTheWindowSection = props => {
+const HeaderRestaurantsModal = ({ selectedRestaurant }) => {
    return (
-      <Fragment>
-         <h4>{props.selectedRestaurant.restaurantName}</h4>
-         <p>{props.selectedRestaurant.address}</p>
-         {/* Average rating section */}
+      <>
+         <h4>{selectedRestaurant.restaurantName}</h4>
+         <p>{selectedRestaurant.address}</p>
+         {/* Average rating section ('Note générale') */}
          <DivNoteGenerale>
             <h5 style={{ margin: "0 10px 0 0" }}>Note générale :</h5>
             <Stars
-               numberOfStars={averageStars(props.selectedRestaurant.ratings)}
+               numberOfStars={averageStars(selectedRestaurant.ratings)}
                isEditable={false}
                size={25}
             />
          </DivNoteGenerale>
-      </Fragment>
+      </>
    );
 };
-
+export default HeaderRestaurantsModal;
 const DivNoteGenerale = styled.div`
    display: flex;
    align-items: center;

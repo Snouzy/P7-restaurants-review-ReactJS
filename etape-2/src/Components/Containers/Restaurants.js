@@ -6,7 +6,7 @@ import { averageStars } from "../../services/libs";
 import Filter from "../Common/Filter";
 
 const Restaurants = props => {
-   const { restaurants, restaurantsFiltered } = props; //from redux
+   const { restaurants, restaurantsFiltered, commentsFlag } = props; //from redux
    const [minimum, setMinimum] = React.useState(0); // min filter = 1
    const [maximum, setMaximum] = React.useState(5); // max filter = 5
 
@@ -27,15 +27,16 @@ const Restaurants = props => {
       const restos = restaurants.filter(resto => {
          let restaurantStars = averageStars(resto.ratings);
 
-         // fix the problem when a user add a restaurant, because he has no ratings yet, so now, he can be displayed in the list still
+         // fix the problem when a user add a restaurant, because he has no ratings yet, give him a default ratings average value
          if (isNaN(restaurantStars)) {
             restaurantStars = 0;
          }
+         //return all the restaurants between the filter
          return restaurantStars >= minimum && restaurantStars <= maximum;
       });
-      // pushing ones which correspond to the filter into the state
+      // pushing ones which correspond to the filter into the store
       props.filterRestaurants(restos);
-   }, [minimum, maximum, restaurants, props.commentsFlag]); //changing when filtered or restaurants store change
+   }, [minimum, maximum, restaurants, commentsFlag]); //changing when filter change or the restaurants store change
 
    return (
       <div className="row col-sm-12 col-lg-3">
@@ -46,6 +47,7 @@ const Restaurants = props => {
          />
 
          <div className="col-sm-12">
+            {/* mapping the redux store and display the restaurant */}
             {restaurantsFiltered && restaurantsFiltered.length ? (
                restaurantsFiltered.map(
                   ({ restaurantName, address, ratings }, index) => (
@@ -70,13 +72,11 @@ const Restaurants = props => {
 };
 
 //read the store
-const mapStateToProps = store => {
-   return {
-      restaurants: store.restoReducer,
-      restaurantsFiltered: store.restoFilter.newRestaurants,
-      commentsFlag: store.commentsFlag
-   };
-};
+const mapStateToProps = store => ({
+   restaurants: store.restoReducer,
+   restaurantsFiltered: store.restoFilter.newRestaurants,
+   commentsFlag: store.commentsFlag
+});
 
 //push-modify the store
 const mapDipatchToProps = {

@@ -1,19 +1,16 @@
 import React from "react";
 import ReactStars from "react-stars";
 
-const Stars = props => {
-   const { numberOfStars, isEditable, size, onGivenNotation } = props;
-   return (
-      <ReactStars
-         count={5}
-         value={numberOfStars}
-         edit={isEditable}
-         size={size}
-         color1={"#ccc"}
-         color2={"#ffd701"}
-         onChange={onGivenNotation}
-      />
-   );
-};
+const Stars = ({ numberOfStars, isEditable, size, onGivenNotation }) => (
+   <ReactStars
+      value={numberOfStars}
+      edit={isEditable}
+      size={size}
+      onChange={onGivenNotation}
+      count={5}
+      color1={"#ccc"}
+      color2={"#ffd701"}
+   />
+);
 
 export default Stars;

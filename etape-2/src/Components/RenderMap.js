@@ -3,7 +3,6 @@ import { API_KEY } from "../api_key";
 import MapOptions from "./Containers/MapOptions";
 
 import { withScriptjs, withGoogleMap } from "react-google-maps";
-import _ from "lodash";
 class RenderMap extends Component {
    constructor(props) {
       super(props);

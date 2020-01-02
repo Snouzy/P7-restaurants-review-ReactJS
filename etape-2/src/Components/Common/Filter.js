@@ -2,9 +2,9 @@ import React, { Fragment } from "react";
 import OptionElt from "./OptionElt";
 import _ from "lodash";
 
-const Filter = props => {
+const Filter = ({ numberOfOptions, changed, maxStars }) => {
    //get an array in order : 1,2,3... till numberOfOption length
-   const numberOfOptionsElements = _.range(0, props.numberOfOptions + 1);
+   const numberOfOptionsElements = _.range(0, numberOfOptions + 1);
 
    return (
       <Fragment>
@@ -15,7 +15,7 @@ const Filter = props => {
                name="sort-min"
                id="sort-min"
                className="form-control"
-               onChange={props.changed}
+               onChange={changed}
             >
                {numberOfOptionsElements.map(el => {
                   return <OptionElt key={el} value={el} number={el} />;
@@ -30,8 +30,8 @@ const Filter = props => {
                name="sort-max"
                id="sort-max"
                className="form-control"
-               onChange={props.changed}
-               value={props.maxStars} //set the defaultValue
+               onChange={changed}
+               value={maxStars} //set the defaultValue (here 5 stars)
             >
                {numberOfOptionsElements.map(el => {
                   return <OptionElt key={el} value={el} number={el} />;

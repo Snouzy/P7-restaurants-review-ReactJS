@@ -11,7 +11,12 @@ import {
    DialogTitle
 } from "@material-ui/core";
 
-export const CommentForm = props => {
+export const CommentForm = ({
+   onGivenNotation,
+   numberOfStars,
+   changed,
+   onSend
+}) => {
    const [open, setOpen] = React.useState(false);
 
    const handleClickOpen = () => {
@@ -44,8 +49,8 @@ export const CommentForm = props => {
                Nombre d'étoiles :
                <Stars
                   size={30}
-                  onGivenNotation={props.onGivenNotation} //onChange
-                  numberOfStars={props.numberOfStars} //Give the stars of the user notation
+                  onGivenNotation={onGivenNotation} //onChange
+                  numberOfStars={numberOfStars} //Give the stars of the user notation
                />
                <TextField
                   margin="none"
@@ -54,14 +59,14 @@ export const CommentForm = props => {
                   type="text"
                   color="primary"
                   fullWidth
-                  onChange={props.changed}
+                  onChange={changed}
                />
             </DialogContent>
             <DialogActions>
                <Button color="primary" onClick={e => handleClose(e)}>
                   Fermer
                </Button>
-               <Button color="primary" onClick={props.onSend}>
+               <Button color="primary" onClick={onSend}>
                   Envoyer
                </Button>
             </DialogActions>
