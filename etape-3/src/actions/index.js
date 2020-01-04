@@ -15,3 +15,9 @@ export function commentsFlag(arg) {
       dispatch({ type: "COMMENTS_FLAG", payload: arg });
    };
 }
+
+export function updateUserPosition(position) {
+   return function(dispatch) {
+      dispatch({ type: "UPDATE_USER_POSITION", payload: position });
+   };
+}
