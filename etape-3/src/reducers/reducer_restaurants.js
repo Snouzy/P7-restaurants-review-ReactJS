@@ -1,6 +1,6 @@
 import data from "../data.json";
 
-export default function(restaurantReducer = data, action) {
+export default function(restaurantReducer = [], action) {
    switch (action.type) {
       case "UPDATE_RESTAURANTS":
          const oldRestaurants = [...restaurantReducer];
