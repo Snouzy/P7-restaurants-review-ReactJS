@@ -36,13 +36,13 @@ export function updateUserPosition(position) {
       dispatch({ type: "UPDATE_USER_POSITION", payload: position });
       axios
          .get(
-            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.592830,7.583890&radius=683&type=restaurant&key=${API_KEY}`
+            `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.592830,7.583890&radius=683&type=restaurant&key=${API_KEY}`
          )
          .then(response => {
             response.data.results.map(r => {
                axios
                   .get(
-                     `https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
+                     `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
                   )
                   .then(response => {
                      console.log(response);
