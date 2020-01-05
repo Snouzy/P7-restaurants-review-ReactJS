@@ -68,6 +68,9 @@ export const MapOptions = props => {
       }
    }, [posOfTheRestaurant]);
 
+   //force to re - render when the userPosition change
+   React.useEffect(() => {}, [props.userPosition]);
+
    // when a user validate the adding restaurant form
    const handleAdded = () => {
       //formate the new restaurant to have the same template as the others
@@ -99,9 +102,10 @@ export const MapOptions = props => {
    const handleSend = () => {
       // verifications
       if (notation !== null && userComment !== "") {
+         console.log(selectedRestaurant);
          selectedRestaurant.ratings.push({
-            stars: notation,
-            comment: userComment
+            rating: notation,
+            text: userComment
          });
          props.commentsFlag(!props.stateCommentsFlag); //use a flag to re - render the list of the restaurants
          // (= quand un user envoie un nouvel avis, il est directement affiché, pas besoin d'attendre le prochain render du fichier Restaurants.js)
