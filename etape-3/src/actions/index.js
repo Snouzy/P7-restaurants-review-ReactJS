@@ -42,7 +42,7 @@ export const updateUserPosition = position => {
          )
          .then(response => {
             response.data.results.map(r => {
-               axios
+               return axios
                   .get(
                      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
                   )

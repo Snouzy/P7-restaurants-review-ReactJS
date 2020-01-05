@@ -24,7 +24,6 @@ class RenderMap extends Component {
 
    getCurrentLocation() {
       if (window.navigator && window.navigator.geolocation) {
-         console.log("hello");
          navigator.geolocation.getCurrentPosition(
             pos => {
                const { latitude, longitude } = pos.coords;

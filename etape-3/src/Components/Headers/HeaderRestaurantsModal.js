@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { averageStars } from "../../services/libs";
 import Stars from "../Common/Stars";
 const HeaderRestaurantsModal = ({ selectedRestaurant }) => {
    return (

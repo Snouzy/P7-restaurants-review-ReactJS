@@ -1,8 +1,8 @@
 import React from "react";
+import styled from "styled-components";
 import { filterRestaurants, commentsFlag } from "../../actions";
 import { connect } from "react-redux";
 import Stars from "../Common/Stars";
-import { averageStars } from "../../services/libs";
 import Filter from "../Common/Filter";
 
 const Restaurants = props => {
@@ -39,7 +39,7 @@ const Restaurants = props => {
    }, [minimum, maximum, restaurants, commentsFlag]); //changing when filter change or the restaurants store change
 
    return (
-      <div className="row col-sm-12 col-lg-3">
+      <DivRestaurants className="row col-sm-12 col-lg-3">
          <Filter
             changed={e => handleFilter(e)}
             maxStars={maximum}
@@ -67,7 +67,7 @@ const Restaurants = props => {
                <p>Aucun restaurant ne correspond aux critères choisis !</p>
             )}
          </div>
-      </div>
+      </DivRestaurants>
    );
 };
 
@@ -84,3 +84,8 @@ const mapDipatchToProps = {
    commentsFlag
 };
 export default connect(mapStateToProps, mapDipatchToProps)(Restaurants);
+
+const DivRestaurants = styled.div`
+   height: 100vh;
+   overflow: scroll;
+`;
