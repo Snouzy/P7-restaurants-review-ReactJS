@@ -138,7 +138,7 @@ export const MapOptions = props => {
             {/* display the markers */}
             {props.restaurants.map((resto, index) => (
                <Marker
-                  key={resto.restaurantName}
+                  key={resto.id}
                   position={formatPosition(resto)}
                   onClick={() => handleClick(index)}
                />
@@ -165,7 +165,10 @@ export const MapOptions = props => {
                      {/* display the ratings of the selected restaurant */}
                      {selectedRestaurant.ratings.map((restaurant, index) => (
                         <div key={restaurant.comment}>
-                           <UserReview resto={restaurant} numero={index + 1} />
+                           <UserReview
+                              resto={selectedRestaurant}
+                              numero={index + 1}
+                           />
                         </div>
                      ))}
 

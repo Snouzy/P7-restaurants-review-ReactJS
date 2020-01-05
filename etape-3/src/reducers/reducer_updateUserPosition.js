@@ -9,6 +9,8 @@ export default function(userPosition = initialState, action) {
       case "UPDATE_USER_POSITION":
          const newPos = action.payload;
          return newPos;
+      case "UPDATE_RESTAURANTS_POSITION":
+         console.log(action.payload);
       default:
          return userPosition;
    }

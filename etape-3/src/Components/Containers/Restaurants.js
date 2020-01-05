@@ -22,21 +22,21 @@ const Restaurants = props => {
    };
 
    // when the user filter the restaurants, return all the wanted restaurants
-   React.useEffect(() => {
-      //look all the defaults restaurants
-      const restos = restaurants.filter(resto => {
-         let restaurantStars = averageStars(resto.ratings);
+   // React.useEffect(() => {
+   //    //look all the defaults restaurants
+   //    const restos = restaurants.filter(resto => {
+   //       let restaurantStars = averageStars(resto.ratings);
 
-         // fix the problem when a user add a restaurant, because he has no ratings yet, give him a default ratings average value
-         if (isNaN(restaurantStars)) {
-            restaurantStars = 0;
-         }
-         //return all the restaurants between the filter
-         return restaurantStars >= minimum && restaurantStars <= maximum;
-      });
-      // pushing ones which correspond to the filter into the store
-      props.filterRestaurants(restos);
-   }, [minimum, maximum, restaurants, commentsFlag]); //changing when filter change or the restaurants store change
+   //       // fix the problem when a user add a restaurant, because he has no ratings yet, give him a default ratings average value
+   //       if (isNaN(restaurantStars)) {
+   //          restaurantStars = 0;
+   //       }
+   //       //return all the restaurants between the filter
+   //       return restaurantStars >= minimum && restaurantStars <= maximum;
+   //    });
+   //    // pushing ones which correspond to the filter into the store
+   //    props.filterRestaurants(restos);
+   // }, [minimum, maximum, restaurants, commentsFlag]); //changing when filter change or the restaurants store change
 
    return (
       <div className="row col-sm-12 col-lg-3">
