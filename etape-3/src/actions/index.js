@@ -64,7 +64,7 @@ export const updateUserPosition = position => {
 //    dispatch({ type: "UPDATE_USER_POSITION", payload: position });
 //    axios
 //       .get(
-//          `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.592830,7.583890&radius=683&type=restaurant&key=AIzaSyAveACnU3xguRVb0iLzM0PaDihPBih0YuQ&pageToken=CrQCIQEAAAnB6Ke29ssFa7QUW3ddkENCur0ZPmfga8X1DJGAUCVClor1K9StOLpMbVbkwS3xcOHZb`
+//          `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.592830,7.583890&radius=683&type=restaurant&key=${API_KEY}&pageToken=CrQCIQEAAAnB6Ke29ssFa7QUW3ddkENCur0ZPmfga8X1DJGAUCVClor1K9StOLpMbVbkwS3xcOHZb`
 //       )
 //       .then(response => {
 //          let responseData = [response];
@@ -73,7 +73,7 @@ export const updateUserPosition = position => {
 //             console.log("It has another page !");
 //             axios
 //                .get(
-//                   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.592830,7.583890&radius=683&type=restaurant&key=AIzaSyAveACnU3xguRVb0iLzM0PaDihPBih0YuQ&pageToken=CrQCIQEAAAnB6Ke29ssFa7QUW3ddkENCur0ZPmfga8X1DJGAUCVClor1K9StOLpMbVbkwS3xcOHZb&pageToken=${response.data.next_page_token}`
+//                   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.592830,7.583890&radius=683&type=restaurant&key=${API_KEY}&pageToken=CrQCIQEAAAnB6Ke29ssFa7QUW3ddkENCur0ZPmfga8X1DJGAUCVClor1K9StOLpMbVbkwS3xcOHZb&pageToken=${response.data.next_page_token}`
 //                )
 //                .then(response => {
 //                   responseData.push(response);
