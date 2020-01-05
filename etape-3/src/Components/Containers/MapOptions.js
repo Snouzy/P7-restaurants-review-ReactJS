@@ -22,7 +22,6 @@ export const MapOptions = props => {
    Geocode.setApiKey(API_KEY);
    Geocode.setLanguage("fr");
    Geocode.setRegion("fr");
-
    // state
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
    const [userComment, setUserComment] = useState("");
@@ -121,7 +120,6 @@ export const MapOptions = props => {
    const handleClose = () => {
       setRightClick(false); //close the modal
    };
-
    return (
       <Fragment>
          {isRightClicked && (
@@ -134,28 +132,25 @@ export const MapOptions = props => {
          )}
          <GoogleMap
             defaultZoom={8}
-            defaultCenter={props.coords}
+            defaultCenter={props.userPosition}
             onRightClick={handleRightClick}
          >
             {/* display the markers */}
             {props.restaurants.map((resto, index) => (
                <Marker
-                  key={resto.restaurantName}
+                  key={resto.id}
                   position={formatPosition(resto)}
                   onClick={() => handleClick(index)}
                />
             ))}
-
-            {/* verify if the component has the user position to display his position */}
-            {props.coords.lng && (
-               <Marker
-                  position={props.coords}
-                  icon={{
-                     url: UserIcon,
-                     scaledSize: new window.google.maps.Size(40, 40)
-                  }}
-               />
-            )}
+            <Marker
+               position={props.userPosition}
+               icon={{
+                  url: UserIcon,
+                  scaledSize: new window.google.maps.Size(40, 40)
+               }}
+            />
+            }
             {/* If the user clicked on a restaurant, display the google window with his content: */}
             {selectedRestaurant && (
                <InfoWindow
@@ -169,8 +164,11 @@ export const MapOptions = props => {
                      />
                      {/* display the ratings of the selected restaurant */}
                      {selectedRestaurant.ratings.map((restaurant, index) => (
-                        <div key={restaurant.comment}>
-                           <UserReview resto={restaurant} numero={index + 1} />
+                        <div key={restaurant.author_url}>
+                           <UserReview
+                              resto={selectedRestaurant}
+                              numero={index}
+                           />
                         </div>
                      ))}
 
@@ -203,15 +201,16 @@ export const MapOptions = props => {
 const mapStateToProps = store => ({
    restaurants: store.restoReducer,
    restaurantsFiltered: store.restoFilter.newRestaurants,
-   stateCommentsFlag: store.commentsFlag
+   stateCommentsFlag: store.commentsFlag,
+   userPosition: store.userPosition
 });
 
-const mapDipatchToProps = {
+const mapDispatchToProps = {
    fetchRestaurants,
    commentsFlag
 };
 
-export default connect(mapStateToProps, mapDipatchToProps)(MapOptions);
+export default connect(mapStateToProps, mapDispatchToProps)(MapOptions);
 
 const DivStreetView = styled.div`
    width: 50rem;

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { API_KEY } from "../api_key";
 import MapOptions from "./Containers/MapOptions";
+import { updateUserPosition } from "../actions";
 
 import { withScriptjs, withGoogleMap } from "react-google-maps";
 class RenderMap extends Component {
@@ -11,9 +13,10 @@ class RenderMap extends Component {
       };
    }
 
-   componentDidMount() {
+   componentWillMount() {
       this.getCurrentLocation();
    }
+   componentDidMount() {}
 
    getCurrentLocation() {
       if (window.navigator && window.navigator.geolocation) {
@@ -24,7 +27,8 @@ class RenderMap extends Component {
                lat: parseFloat(latitude),
                lng: parseFloat(longitude)
             };
-            this.setState({ coords });
+            // this.setState({ coords });
+            this.props.updateUserPosition(coords);
          });
       }
    }
@@ -47,4 +51,8 @@ class RenderMap extends Component {
    }
 }
 
-export default RenderMap;
+const mapDispatchToProps = {
+   updateUserPosition
+};
+
+export default connect(undefined, mapDispatchToProps)(RenderMap);

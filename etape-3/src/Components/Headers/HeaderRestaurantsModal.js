@@ -11,7 +11,8 @@ const HeaderRestaurantsModal = ({ selectedRestaurant }) => {
          <DivNoteGenerale>
             <h5 style={{ margin: "0 10px 0 0" }}>Note générale :</h5>
             <Stars
-               numberOfStars={averageStars(selectedRestaurant.ratings)}
+               // numberOfStars={averageStars(selectedRestaurant.ratings)}
+               numberOfStars={selectedRestaurant.stars}
                isEditable={false}
                size={25}
             />
