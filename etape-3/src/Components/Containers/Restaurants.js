@@ -25,7 +25,6 @@ const Restaurants = props => {
    React.useEffect(() => {
       //look all the defaults restaurants
       const restos = restaurants.filter(resto => {
-         console.log(resto);
          let restaurantStars = resto.stars;
 
          // fix the problem when a user add a restaurant, because he has no ratings yet, give him a default ratings average value

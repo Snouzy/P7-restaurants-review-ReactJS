@@ -68,9 +68,6 @@ export const MapOptions = props => {
       }
    }, [posOfTheRestaurant]);
 
-   //force to re - render when the userPosition change
-   React.useEffect(() => {}, [props.userPosition]);
-
    // when a user validate the adding restaurant form
    const handleAdded = () => {
       //formate the new restaurant to have the same template as the others

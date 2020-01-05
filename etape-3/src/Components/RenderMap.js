@@ -16,11 +16,15 @@ class RenderMap extends Component {
    componentWillMount() {
       this.getCurrentLocation();
    }
-   componentDidMount() {}
 
-   getCurrentLocation() {
+   // re render to re - center the map on the user position !
+   shouldComponentUpdate(nextProps) {
+      return this.props.userPosition !== nextProps.userPosition;
+   }
+
+   async getCurrentLocation() {
       if (window.navigator && window.navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(pos => {
+         await navigator.geolocation.getCurrentPosition(pos => {
             const { latitude, longitude } = pos.coords;
             // console.log("latitude :", latitude, "longitude :", longitude);
             const coords = {
@@ -55,4 +59,8 @@ const mapDispatchToProps = {
    updateUserPosition
 };
 
-export default connect(undefined, mapDispatchToProps)(RenderMap);
+const mapStateToProps = store => ({
+   userPosition: store.userPosition
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RenderMap);
