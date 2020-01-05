@@ -22,20 +22,28 @@ class RenderMap extends Component {
       return this.props.userPosition !== nextProps.userPosition;
    }
 
-   async getCurrentLocation() {
+   getCurrentLocation() {
       if (window.navigator && window.navigator.geolocation) {
-         await navigator.geolocation.getCurrentPosition(pos => {
-            const { latitude, longitude } = pos.coords;
-            // console.log("latitude :", latitude, "longitude :", longitude);
-            const coords = {
-               lat: parseFloat(latitude),
-               lng: parseFloat(longitude)
-            };
-            // this.setState({ coords });
-            this.props.updateUserPosition(coords);
-         });
+         console.log("hello");
+         navigator.geolocation.getCurrentPosition(
+            pos => {
+               const { latitude, longitude } = pos.coords;
+               // console.log("latitude :", latitude, "longitude :", longitude);
+               const coords = {
+                  lat: parseFloat(latitude),
+                  lng: parseFloat(longitude)
+               };
+               // this.setState({ coords });
+               this.props.updateUserPosition(coords);
+            },
+            error => {
+               console.log(error);
+               this.props.updateUserPosition({ lat: 48.866667, lng: 2.333333 });
+            }
+         );
       }
    }
+   //this.props.updateUserPosition({ lat: 48.866667, lng: 2.333333 });
 
    render() {
       const WrappedMap = withScriptjs(

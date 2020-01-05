@@ -1,6 +1,5 @@
 import { API_KEY } from "../api_key";
 import axios from "axios";
-import { formatPosition } from "../services/libs";
 export function fetchRestaurants(args) {
    return function(dispatch) {
       dispatch({ type: "UPDATE_RESTAURANTS", payload: args });
@@ -30,13 +29,16 @@ function formatRestaurant(r) {
       stars: r.rating
    };
 }
-
-export function updateUserPosition(position) {
+//testing
+//lat = 47.592830
+//lng = 7.583890
+export const updateUserPosition = position => {
+   console.log(position);
    return dispatch => {
       dispatch({ type: "UPDATE_USER_POSITION", payload: position });
       axios
          .get(
-            `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=47.592830,7.583890&radius=683&type=restaurant&key=${API_KEY}`
+            `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=683&type=restaurant&key=${API_KEY}`
          )
          .then(response => {
             response.data.results.map(r => {
@@ -57,7 +59,7 @@ export function updateUserPosition(position) {
             console.log(error);
          });
    };
-}
+};
 // return function(dispatch) {
 //    dispatch({ type: "UPDATE_USER_POSITION", payload: position });
 //    axios
