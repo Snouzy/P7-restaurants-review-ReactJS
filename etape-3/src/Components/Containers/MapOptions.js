@@ -164,7 +164,7 @@ export const MapOptions = props => {
                      />
                      {/* display the ratings of the selected restaurant */}
                      {selectedRestaurant.ratings.map((restaurant, index) => (
-                        <div key={restaurant.lat + restaurant.long}>
+                        <div key={restaurant.author_url}>
                            <UserReview
                               resto={selectedRestaurant}
                               numero={index}

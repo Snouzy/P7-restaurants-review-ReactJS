@@ -21,7 +21,7 @@ export function commentsFlag(arg) {
 function formatRestaurant(r) {
    return {
       key: r.id,
-      id: r.id,
+      id: r.place_id,
       restaurantName: r.name,
       address: r.formatted_address,
       lat: r.geometry.location.lat,
