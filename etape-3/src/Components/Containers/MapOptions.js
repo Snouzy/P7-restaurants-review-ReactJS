@@ -25,6 +25,7 @@ export const MapOptions = props => {
    // state
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
    const [userComment, setUserComment] = useState("");
+   const [userName, setUserName] = useState("Inconnu");
    const [notation, setNotation] = React.useState(null);
    const [isRightClicked, setRightClick] = React.useState(false);
    const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState("");
@@ -101,7 +102,7 @@ export const MapOptions = props => {
       if (notation !== null && userComment !== "") {
          console.log(selectedRestaurant);
          selectedRestaurant.ratings.push({
-            author_name: "Vous",
+            author_name: userName,
             profile_photo_url:
                "https://lh4.ggpht.com/-_kZrJXAOGKY/AAAAAAAAAAI/AAAAAAAAAAA/BJTWMlSQA9s/s128-c0x00000000-cc-rp-mo-ba3/photo.jpg",
             relative_time_description: "Maintenant",
@@ -114,6 +115,7 @@ export const MapOptions = props => {
          //restoring the inital state
          setNotation(null);
          setUserComment("");
+         setUserName("Inconnu");
       } else {
          alert(
             "Merci de donner une notation d'abord sous forme d'étoiles, et ensuite sous forme de commentaire ! "
@@ -180,6 +182,7 @@ export const MapOptions = props => {
                      {/* Comment Form */}
                      <CommentForm
                         changed={e => setUserComment(e.target.value)}
+                        pseudo={e => setUserName(e.target.value)}
                         onGivenNotation={e => setNotation(e)}
                         numberOfStars={notation}
                         onSend={handleSend}

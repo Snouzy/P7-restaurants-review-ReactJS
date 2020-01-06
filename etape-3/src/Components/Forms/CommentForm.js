@@ -15,6 +15,7 @@ export const CommentForm = ({
    onGivenNotation,
    numberOfStars,
    changed,
+   pseudo,
    onSend
 }) => {
    const [open, setOpen] = React.useState(false);
@@ -46,20 +47,34 @@ export const CommentForm = ({
                   note. Merci de rester le plus objectif possible et de vous
                   jusitifer.
                </DialogContentText>
-               Nombre d'étoiles :
+               Nombre d'étoiles (obligatoire):
                <Stars
                   size={30}
                   onGivenNotation={onGivenNotation} //onChange
                   numberOfStars={numberOfStars} //Give the stars of the user notation
                />
                <TextField
-                  margin="none"
+                  margin="dense"
                   id="name"
-                  label="Votre avis..."
+                  label="Votre nom..."
                   type="text"
                   color="primary"
+                  size="small"
+                  onChange={pseudo}
+                  variant="outlined"
+               />
+               <TextField
+                  required
+                  margin="dense"
+                  id="name"
+                  label="Votre avis... (obligatoire)"
+                  type="text"
+                  color="primary"
+                  variant="outlined"
+                  size="medium"
                   fullWidth
                   onChange={changed}
+                  multiline={true}
                />
             </DialogContent>
             <DialogActions>
