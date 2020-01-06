@@ -14,7 +14,7 @@ import HeaderRestaurantsModal from "../Headers/HeaderRestaurantsModal";
 import { CommentForm } from "../Forms/CommentForm";
 import AddingRestaurantForm from "../Forms/AddingRestaurantForm";
 import { UserReview } from "../Common/UserReview";
-import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
+import UserIcon from "../../imgs/google-maps-marker-green.png";
 import Geocode from "react-geocode";
 
 export const MapOptions = props => {
@@ -101,6 +101,10 @@ export const MapOptions = props => {
       if (notation !== null && userComment !== "") {
          console.log(selectedRestaurant);
          selectedRestaurant.ratings.push({
+            author_name: "Vous",
+            profile_photo_url:
+               "https://lh4.ggpht.com/-_kZrJXAOGKY/AAAAAAAAAAI/AAAAAAAAAAA/BJTWMlSQA9s/s128-c0x00000000-cc-rp-mo-ba3/photo.jpg",
+            relative_time_description: "Maintenant",
             rating: notation,
             text: userComment
          });
@@ -148,7 +152,7 @@ export const MapOptions = props => {
                position={props.userPosition}
                icon={{
                   url: UserIcon,
-                  scaledSize: new window.google.maps.Size(40, 40)
+                  scaledSize: new window.google.maps.Size(25, 40)
                }}
             />
             }
@@ -165,7 +169,7 @@ export const MapOptions = props => {
                      />
                      {/* display the ratings of the selected restaurant */}
                      {selectedRestaurant.ratings.map((restaurant, index) => (
-                        <div key={restaurant.author_url}>
+                        <div key={restaurant.author_name}>
                            <UserReview
                               resto={selectedRestaurant}
                               numero={index}
