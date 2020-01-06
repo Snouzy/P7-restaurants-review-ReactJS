@@ -33,9 +33,9 @@ const Filter = ({ numberOfOptions, changed, maxStars }) => {
                onChange={changed}
                value={maxStars} //set the defaultValue (here 5 stars)
             >
-               {numberOfOptionsElements.map(el => {
-                  return <OptionElt key={el} value={el} number={el} />;
-               })}
+               {numberOfOptionsElements.map(el => (
+                  <OptionElt key={el} value={el} number={el} />
+               ))}
             </select>
          </div>
       </Fragment>

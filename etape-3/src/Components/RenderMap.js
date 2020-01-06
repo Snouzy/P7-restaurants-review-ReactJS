@@ -3,16 +3,9 @@ import { connect } from "react-redux";
 import { API_KEY } from "../api_key";
 import MapOptions from "./Containers/MapOptions";
 import { updateUserPosition } from "../actions";
-
 import { withScriptjs, withGoogleMap } from "react-google-maps";
-class RenderMap extends Component {
-   constructor(props) {
-      super(props);
-      this.state = {
-         coords: {} //mettre les coordonnées de paris
-      };
-   }
 
+class RenderMap extends Component {
    componentWillMount() {
       this.getCurrentLocation();
    }
@@ -27,12 +20,10 @@ class RenderMap extends Component {
          navigator.geolocation.getCurrentPosition(
             pos => {
                const { latitude, longitude } = pos.coords;
-               // console.log("latitude :", latitude, "longitude :", longitude);
                const coords = {
                   lat: parseFloat(latitude),
                   lng: parseFloat(longitude)
                };
-               // this.setState({ coords });
                this.props.updateUserPosition(coords);
             },
             error => {
@@ -42,12 +33,9 @@ class RenderMap extends Component {
          );
       }
    }
-   //this.props.updateUserPosition({ lat: 48.866667, lng: 2.333333 });
 
    render() {
-      const WrappedMap = withScriptjs(
-         withGoogleMap(() => <MapOptions coords={this.state.coords} />)
-      );
+      const WrappedMap = withScriptjs(withGoogleMap(() => <MapOptions />));
 
       return (
          <div className="col-sm-12 col-lg-9" style={{ height: "50%" }}>

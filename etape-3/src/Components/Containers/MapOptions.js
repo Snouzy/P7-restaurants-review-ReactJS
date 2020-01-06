@@ -104,7 +104,7 @@ export const MapOptions = props => {
          selectedRestaurant.ratings.push({
             author_name: userName,
             profile_photo_url:
-               "https://lh4.ggpht.com/-_kZrJXAOGKY/AAAAAAAAAAI/AAAAAAAAAAA/BJTWMlSQA9s/s128-c0x00000000-cc-rp-mo-ba3/photo.jpg",
+               "https://lh6.ggpht.com/-08ihx6rTCUU/AAAAAAAAAAI/AAAAAAAAAAA/o8-xUq0yeqQ/s128-c0x00000000-cc-rp-mo/photo.jpg",
             relative_time_description: getMoment(),
             rating: notation,
             text: userComment
