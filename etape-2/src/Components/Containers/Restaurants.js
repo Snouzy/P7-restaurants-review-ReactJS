@@ -21,7 +21,7 @@ const Restaurants = props => {
       }
    };
 
-   // when the user filter the restaurants, return all the wanted restaurants
+   // // when the user filter the restaurants, return all the wanted restaurants
    React.useEffect(() => {
       //look all the defaults restaurants
       const restos = restaurants.filter(resto => {

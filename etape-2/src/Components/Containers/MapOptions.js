@@ -46,7 +46,7 @@ export const MapOptions = props => {
    =============== */
 
    // when a user right click on the map to add a new restaurant
-   const handleRightClick = e => {
+   const handleClickAdd = e => {
       setRightClick(true);
       const lat = e.latLng.lat();
       const lng = e.latLng.lng();
@@ -135,12 +135,12 @@ export const MapOptions = props => {
          <GoogleMap
             defaultZoom={8}
             defaultCenter={props.coords}
-            onRightClick={handleRightClick}
+            onClick={handleClickAdd}
          >
             {/* display the markers */}
             {props.restaurants.map((resto, index) => (
                <Marker
-                  key={resto.restaurantName}
+                  key={resto.id}
                   position={formatPosition(resto)}
                   onClick={() => handleClick(index)}
                />
