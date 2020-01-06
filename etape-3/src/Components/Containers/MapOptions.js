@@ -158,7 +158,7 @@ export const MapOptions = props => {
                   scaledSize: new window.google.maps.Size(25, 40)
                }}
             />
-            }
+
             {/* If the user clicked on a restaurant, display the google window with his content: */}
             {selectedRestaurant && (
                <InfoWindow

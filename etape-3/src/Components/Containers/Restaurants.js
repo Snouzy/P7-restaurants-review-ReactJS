@@ -45,37 +45,44 @@ const Restaurants = props => {
    }, [minimum, maximum, restaurants, commentsFlag]); //changing when filter change or the restaurants store change
 
    return (
-      <DivRestaurants className="row col-sm-12 col-lg-3">
-         <Filter
-            changed={e => handleFilter(e)}
-            maxStars={maximum}
-            numberOfOptions={5}
-         />
+      <>
+         <DivRestaurants className="row col-sm-12 col-lg-3">
+            <Filter
+               changed={e => handleFilter(e)}
+               maxStars={maximum}
+               numberOfOptions={5}
+            />
 
-         <div className="col-sm-12">
-            {/* mapping the redux store and display the restaurant */}
-            {restaurantsFiltered && restaurantsFiltered.length ? (
-               restaurantsFiltered.map(
-                  ({ restaurantName, address, ratings }, index) => {
-                     return (
-                        <div key={index}>
-                           <h5>{restaurantName}</h5>
-                           <p style={{ marginBottom: "0" }}>{address}</p>
-                           <Stars
-                              numberOfStars={ratings && averageStars(ratings)}
-                              isEditable={false}
-                              size={25}
-                           />
-                           <hr />
-                        </div>
-                     );
-                  }
-               )
-            ) : (
-               <p>Aucun restaurant ne correspond aux critères choisis !</p>
-            )}
-         </div>
-      </DivRestaurants>
+            <div className="col-sm-12">
+               {/* mapping the redux store and display the restaurant */}
+               {restaurantsFiltered && restaurantsFiltered.length ? (
+                  restaurantsFiltered.map(
+                     ({ restaurantName, address, ratings }, index) => {
+                        return (
+                           <div key={index}>
+                              <h5>{restaurantName}</h5>
+                              <p style={{ marginBottom: "0" }}>{address}</p>
+                              <Stars
+                                 numberOfStars={
+                                    ratings && averageStars(ratings)
+                                 }
+                                 isEditable={false}
+                                 size={25}
+                              />
+                              <hr />
+                           </div>
+                        );
+                     }
+                  )
+               ) : (
+                  <p>Aucun restaurant ne correspond aux critères choisis !</p>
+               )}
+            </div>
+         </DivRestaurants>
+         <p style={{ textAlign: "center" }}>
+            Note: vous pouvez ajouter un restaurant en cliquant sur la carte !
+         </p>
+      </>
    );
 };
 
@@ -95,5 +102,5 @@ export default connect(mapStateToProps, mapDipatchToProps)(Restaurants);
 
 const DivRestaurants = styled.div`
    height: 100vh;
-   overflow: scroll;
+   overflow-y: scroll;
 `;
