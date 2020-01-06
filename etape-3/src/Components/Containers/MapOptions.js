@@ -101,7 +101,6 @@ export const MapOptions = props => {
    const handleSend = () => {
       // verifications
       if (notation !== null && userComment !== "") {
-         console.log(selectedRestaurant);
          selectedRestaurant.ratings.push({
             author_name: userName,
             profile_photo_url:

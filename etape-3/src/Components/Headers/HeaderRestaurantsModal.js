@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Stars from "../Common/Stars";
 import { averageStars } from "../../services/libs";
 const HeaderRestaurantsModal = ({ selectedRestaurant }) => {
-   console.log(selectedRestaurant.ratings);
    return (
       <>
          <h4>{selectedRestaurant.restaurantName}</h4>
