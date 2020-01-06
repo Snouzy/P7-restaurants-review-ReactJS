@@ -9,7 +9,11 @@ export const UserReview = ({ numero, resto }) => {
          <DivAvis>
             <PTime> ({thisComment.relative_time_description})</PTime>
             <PNameWrapper>{thisComment.author_name} :</PNameWrapper>
-            <Stars numberOfStars={resto.stars} isEditable={false} size={20} />
+            <Stars
+               numberOfStars={thisComment.rating}
+               isEditable={false}
+               size={20}
+            />
          </DivAvis>
          <DivComment>
             <ImgProfile src={thisComment.profile_photo_url} />
