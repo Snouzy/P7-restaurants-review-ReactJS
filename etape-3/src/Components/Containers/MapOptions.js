@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { fetchRestaurants, commentsFlag } from "../../actions";
 //utils libs
-import { formatPosition } from "../../services/libs";
+import { formatPosition, getMoment } from "../../services/libs";
 import ReactStreetview from "react-streetview";
 import styled from "styled-components";
 //Google
@@ -105,7 +105,7 @@ export const MapOptions = props => {
             author_name: userName,
             profile_photo_url:
                "https://lh4.ggpht.com/-_kZrJXAOGKY/AAAAAAAAAAI/AAAAAAAAAAA/BJTWMlSQA9s/s128-c0x00000000-cc-rp-mo-ba3/photo.jpg",
-            relative_time_description: "Maintenant",
+            relative_time_description: getMoment(),
             rating: notation,
             text: userComment
          });
