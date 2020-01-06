@@ -17,6 +17,7 @@ export function commentsFlag(arg) {
       dispatch({ type: "COMMENTS_FLAG", payload: arg });
    };
 }
+
 function formatRestaurant(r) {
    return {
       key: r.id,
@@ -29,9 +30,6 @@ function formatRestaurant(r) {
       stars: r.rating
    };
 }
-//testing
-//lat = 47.592830
-//lng = 7.583890
 export const updateUserPosition = position => {
    return dispatch => {
       dispatch({ type: "UPDATE_USER_POSITION", payload: position });
@@ -46,7 +44,6 @@ export const updateUserPosition = position => {
                      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
                   )
                   .then(response => {
-                     // console.log(response);
                      dispatch({
                         type: "UPDATE_RESTAURANTS",
                         payload: formatRestaurant(response.data.result)
