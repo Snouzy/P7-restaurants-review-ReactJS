@@ -4,6 +4,7 @@ import { filterRestaurants, commentsFlag } from "../../actions";
 import { connect } from "react-redux";
 import Stars from "../Common/Stars";
 import Filter from "../Common/Filter";
+import { averageStars } from "../../services/libs";
 
 const Restaurants = props => {
    const { restaurants, restaurantsFiltered, commentsFlag } = props; //from redux
@@ -50,18 +51,21 @@ const Restaurants = props => {
             {/* mapping the redux store and display the restaurant */}
             {restaurantsFiltered && restaurantsFiltered.length ? (
                restaurantsFiltered.map(
-                  ({ restaurantName, address, stars }, index) => (
-                     <div key={index}>
-                        <h5>{restaurantName}</h5>
-                        <p style={{ marginBottom: "0" }}>{address}</p>
-                        <Stars
-                           numberOfStars={stars}
-                           isEditable={false}
-                           size={25}
-                        />
-                        <hr />
-                     </div>
-                  )
+                  ({ restaurantName, address, stars, ratings }, index) => {
+                     console.log(ratings);
+                     return (
+                        <div key={index}>
+                           <h5>{restaurantName}</h5>
+                           <p style={{ marginBottom: "0" }}>{address}</p>
+                           <Stars
+                              numberOfStars={ratings && averageStars(ratings)}
+                              isEditable={false}
+                              size={25}
+                           />
+                           <hr />
+                        </div>
+                     );
+                  }
                )
             ) : (
                <p>Aucun restaurant ne correspond aux critères choisis !</p>

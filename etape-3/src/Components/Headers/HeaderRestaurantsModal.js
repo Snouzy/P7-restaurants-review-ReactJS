@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Stars from "../Common/Stars";
+import { averageStars } from "../../services/libs";
 const HeaderRestaurantsModal = ({ selectedRestaurant }) => {
+   console.log(selectedRestaurant.ratings);
    return (
       <>
          <h4>{selectedRestaurant.restaurantName}</h4>
@@ -10,8 +12,8 @@ const HeaderRestaurantsModal = ({ selectedRestaurant }) => {
          <DivNoteGenerale>
             <h5 style={{ margin: "0 10px 0 0" }}>Note générale :</h5>
             <Stars
-               // numberOfStars={averageStars(selectedRestaurant.ratings)}
-               numberOfStars={selectedRestaurant.stars}
+               numberOfStars={averageStars(selectedRestaurant.ratings)}
+               // numberOfStars={selectedRestaurant.stars}
                isEditable={false}
                size={25}
             />
