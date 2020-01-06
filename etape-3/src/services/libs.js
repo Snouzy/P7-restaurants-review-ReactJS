@@ -26,14 +26,34 @@ export const formatPosition = restaurant => {
 
 export const averageStars = thingsToCalculate => {
    const arrayOfThingsToCalculate = [];
-   for (let i = 0; i < thingsToCalculate.length; i++) {
-      arrayOfThingsToCalculate.push(thingsToCalculate[i].rating);
-   }
+   let result;
+   if (thingsToCalculate) {
+      console.log(thingsToCalculate);
+      for (let i = 0; i < thingsToCalculate.length; i++) {
+         arrayOfThingsToCalculate.push(thingsToCalculate[i].rating);
+      }
 
-   return (
-      arrayOfThingsToCalculate.reduce(function(a, b) {
-         //a = accumulator // b = current value
-         return a + b;
-      }, 0) / arrayOfThingsToCalculate.length // 0 = inital value
-   );
+      result =
+         arrayOfThingsToCalculate.reduce(function(a, b) {
+            //a = accumulator // b = current value
+            return a + b;
+         }, 0) / arrayOfThingsToCalculate.length; // 0 = inital value
+   } else {
+      result = 0;
+   }
+   return result;
 };
+// export const averageStars = thingsToCalculate => {
+//    const arrayOfThingsToCalculate = [];
+
+//    for (let i = 0; i < thingsToCalculate.length; i++) {
+//       arrayOfThingsToCalculate.push(thingsToCalculate[i].rating);
+//    }
+
+//    return (
+//       arrayOfThingsToCalculate.reduce(function(a, b) {
+//          //a = accumulator // b = current value
+//          return a + b;
+//       }, 0) / arrayOfThingsToCalculate.length // 0 = inital value
+//    );
+// };

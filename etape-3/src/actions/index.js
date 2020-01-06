@@ -25,7 +25,7 @@ function formatRestaurant(r) {
       address: r.formatted_address,
       lat: r.geometry.location.lat,
       long: r.geometry.location.lng,
-      ratings: r.reviews,
+      ratings: r.reviews || [],
       stars: r.rating
    };
 }

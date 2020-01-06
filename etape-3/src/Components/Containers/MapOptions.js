@@ -170,14 +170,15 @@ export const MapOptions = props => {
                         selectedRestaurant={selectedRestaurant}
                      />
                      {/* display the ratings of the selected restaurant */}
-                     {selectedRestaurant.ratings.map((restaurant, index) => (
-                        <div key={restaurant.author_name}>
-                           <UserReview
-                              resto={selectedRestaurant}
-                              numero={index}
-                           />
-                        </div>
-                     ))}
+                     {selectedRestaurant.ratings &&
+                        selectedRestaurant.ratings.map((restaurant, index) => (
+                           <div key={restaurant.author_name}>
+                              <UserReview
+                                 resto={selectedRestaurant}
+                                 numero={index}
+                              />
+                           </div>
+                        ))}
 
                      {/* Comment Form */}
                      <CommentForm
