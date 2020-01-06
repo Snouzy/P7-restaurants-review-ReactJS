@@ -26,7 +26,12 @@ const Restaurants = props => {
    React.useEffect(() => {
       //look all the defaults restaurants
       const restos = restaurants.filter(resto => {
-         let restaurantStars = resto.stars;
+         let restaurantStars;
+
+         //because some of these don't have any rating
+         if (resto.ratings) {
+            restaurantStars = averageStars(resto.ratings);
+         }
 
          // fix the problem when a user add a restaurant, because he has no ratings yet, give him a default ratings average value
          if (isNaN(restaurantStars)) {
@@ -51,8 +56,7 @@ const Restaurants = props => {
             {/* mapping the redux store and display the restaurant */}
             {restaurantsFiltered && restaurantsFiltered.length ? (
                restaurantsFiltered.map(
-                  ({ restaurantName, address, stars, ratings }, index) => {
-                     console.log(ratings);
+                  ({ restaurantName, address, ratings }, index) => {
                      return (
                         <div key={index}>
                            <h5>{restaurantName}</h5>

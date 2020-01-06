@@ -33,7 +33,6 @@ function formatRestaurant(r) {
 //lat = 47.592830
 //lng = 7.583890
 export const updateUserPosition = position => {
-   console.log(position);
    return dispatch => {
       dispatch({ type: "UPDATE_USER_POSITION", payload: position });
       axios
@@ -47,7 +46,7 @@ export const updateUserPosition = position => {
                      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
                   )
                   .then(response => {
-                     console.log(response);
+                     // console.log(response);
                      dispatch({
                         type: "UPDATE_RESTAURANTS",
                         payload: formatRestaurant(response.data.result)

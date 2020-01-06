@@ -21,7 +21,6 @@ export const averageStars = thingsToCalculate => {
    for (let i = 0; i < thingsToCalculate.length; i++) {
       arrayOfThingsToCalculate.push(thingsToCalculate[i].rating);
    }
-   console.log(arrayOfThingsToCalculate);
 
    return (
       arrayOfThingsToCalculate.reduce(function(a, b) {
@@ -30,16 +29,3 @@ export const averageStars = thingsToCalculate => {
       }, 0) / arrayOfThingsToCalculate.length // 0 = inital value
    );
 };
-// export const averageStars = thingsToCalculate => {
-//    const arrayOfThingsToCalculate = [];
-//    for (let i = 0; i < thingsToCalculate.length; i++) {
-//       arrayOfThingsToCalculate.push(thingsToCalculate[i].stars);
-//    }
-
-//    return (
-//       arrayOfThingsToCalculate.reduce(function(a, b) {
-//          //a = accumulator // b = current value
-//          return a + b;
-//       }, 0) / arrayOfThingsToCalculate.length // 0 = inital value
-//    );
-// };

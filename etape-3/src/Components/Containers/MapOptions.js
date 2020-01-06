@@ -27,7 +27,7 @@ export const MapOptions = props => {
    const [userComment, setUserComment] = useState("");
    const [userName, setUserName] = useState("Inconnu");
    const [notation, setNotation] = React.useState(null);
-   const [isRightClicked, setRightClick] = React.useState(false);
+   const [isAdding, setIsAdding] = React.useState(false);
    const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState("");
    const [posOfTheRestaurant, setPosOfTheRestaurant] = React.useState(null);
    const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
@@ -47,7 +47,7 @@ export const MapOptions = props => {
 
    // when a user right click on the map to add a new restaurant
    const handleClickAdd = e => {
-      setRightClick(true);
+      setIsAdding(true);
       const lat = e.latLng.lat();
       const lng = e.latLng.lng();
       setPosOfTheRestaurant([lat, lng]); //we put the clicked coordinates into the state
@@ -78,6 +78,7 @@ export const MapOptions = props => {
       );
       // pushing the new restaurant into the redux store
       props.fetchRestaurants(addedRestaurant);
+      setIsAdding(false);
    };
 
    const formatRestaurant = (name, address) => {
@@ -125,13 +126,13 @@ export const MapOptions = props => {
 
    // when the user click the close button of the Restaurant adding's form ("Fermer")
    const handleClose = () => {
-      setRightClick(false); //close the modal
+      setIsAdding(false); //close the modal
    };
    return (
       <Fragment>
-         {isRightClicked && (
+         {isAdding && (
             <AddingRestaurantForm
-               isRightClicked={isRightClicked}
+               isAdding={isAdding}
                onSend={handleAdded}
                handleClose={handleClose}
                changed={e => setNameOfTheRestaurant(e.target.value)}

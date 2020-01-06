@@ -9,14 +9,9 @@ import {
    DialogTitle
 } from "@material-ui/core";
 
-const AddingRestaurantForm = ({
-   isRightClicked,
-   handleClose,
-   onSend,
-   changed
-}) => (
+const AddingRestaurantForm = ({ isAdding, handleClose, onSend, changed }) => (
    <Dialog
-      open={isRightClicked}
+      open={isAdding}
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
    >
