@@ -1,3 +1,6 @@
+import moment from "moment";
+import "moment/locale/fr";
+
 // return the average number of an array of numbers
 export const average = arr => {
    return (
@@ -6,6 +9,11 @@ export const average = arr => {
          return a + b;
       }, 0) / arr.length // 0 = inital value
    );
+};
+
+export const getMoment = () => {
+   moment.locale("fr");
+   return moment().fromNow();
 };
 
 // to put only 1 line on G-maps components props, like : position=formatPosition(arg)
