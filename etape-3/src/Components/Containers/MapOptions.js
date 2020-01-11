@@ -1,37 +1,37 @@
-import React, { useState, Fragment } from "react";
-import { connect } from "react-redux";
-import { fetchRestaurants, commentsFlag } from "../../actions";
+import React, { useState, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { fetchRestaurants, commentsFlag } from '../../actions';
 //utils libs
-import { formatPosition, getMoment } from "../../services/libs";
-import ReactStreetview from "react-streetview";
-import styled from "styled-components";
+import { formatPosition, getMoment } from '../../services/libs';
+import ReactStreetview from 'react-streetview';
+import styled from 'styled-components';
 //Google
-import { GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import { GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 //utils imports
-import { API_KEY } from "../../api_key";
+import { API_KEY } from '../../api_key';
 //Personal imports
-import HeaderRestaurantsModal from "../Headers/HeaderRestaurantsModal";
-import { CommentForm } from "../Forms/CommentForm";
-import AddingRestaurantForm from "../Forms/AddingRestaurantForm";
-import { UserReview } from "../Common/UserReview";
-import UserIcon from "../../imgs/google-maps-marker-green.png";
-import Geocode from "react-geocode";
+import HeaderRestaurantsModal from '../Headers/HeaderRestaurantsModal';
+import { CommentForm } from '../Forms/CommentForm';
+import AddingRestaurantForm from '../Forms/AddingRestaurantForm';
+import { UserReview } from '../Common/UserReview';
+import UserIcon from '../../imgs/google-maps-marker-green.png';
+import Geocode from 'react-geocode';
 
 export const MapOptions = props => {
    // GoogleMap GeoCode API  initialisation
    Geocode.setApiKey(API_KEY);
-   Geocode.setLanguage("fr");
-   Geocode.setRegion("fr");
+   Geocode.setLanguage('fr');
+   Geocode.setRegion('fr');
    // state
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-   const [userComment, setUserComment] = useState("");
-   const [userName, setUserName] = useState("Inconnu");
+   const [userComment, setUserComment] = useState('');
+   const [userName, setUserName] = useState('Inconnu');
    const [notation, setNotation] = React.useState(null);
    const [isAdding, setIsAdding] = React.useState(false);
-   const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState("");
+   const [NameOfTheRestaurant, setNameOfTheRestaurant] = React.useState('');
    const [posOfTheRestaurant, setPosOfTheRestaurant] = React.useState(null);
    const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
-      ""
+      ''
    );
 
    // on click on one of the markers
@@ -100,11 +100,11 @@ export const MapOptions = props => {
    //when the user validate the comment form
    const handleSend = () => {
       // verifications
-      if (notation !== null && userComment !== "") {
+      if (notation !== null && userComment !== '') {
          selectedRestaurant.ratings.push({
             author_name: userName,
             profile_photo_url:
-               "https://lh6.ggpht.com/-08ihx6rTCUU/AAAAAAAAAAI/AAAAAAAAAAA/o8-xUq0yeqQ/s128-c0x00000000-cc-rp-mo/photo.jpg",
+               'https://lh6.ggpht.com/-08ihx6rTCUU/AAAAAAAAAAI/AAAAAAAAAAA/o8-xUq0yeqQ/s128-c0x00000000-cc-rp-mo/photo.jpg',
             relative_time_description: getMoment(),
             rating: notation,
             text: userComment
@@ -114,8 +114,8 @@ export const MapOptions = props => {
 
          //restoring the inital state
          setNotation(null);
-         setUserComment("");
-         setUserName("Inconnu");
+         setUserComment('');
+         setUserName('Inconnu');
       } else {
          alert(
             "Merci de donner une notation d'abord sous forme d'étoiles, et ensuite sous forme de commentaire ! "

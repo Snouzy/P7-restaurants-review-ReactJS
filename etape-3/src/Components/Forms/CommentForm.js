@@ -1,5 +1,5 @@
-import React from "react";
-import Stars from "../Common/Stars";
+import React from 'react';
+import Stars from '../Common/Stars';
 
 import {
    Dialog,
@@ -9,7 +9,7 @@ import {
    DialogContent,
    DialogContentText,
    DialogTitle
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 export const CommentForm = ({
    onGivenNotation,
@@ -45,7 +45,7 @@ export const CommentForm = ({
                <DialogContentText>
                   Ici, vous pouvez noter un restaurant et lui attribuer une
                   note. Merci de rester le plus objectif possible et de vous
-                  jusitifer.
+                  justifier.
                </DialogContentText>
                Nombre d'étoiles (obligatoire):
                <Stars
