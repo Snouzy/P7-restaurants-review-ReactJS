@@ -30,15 +30,15 @@ function formatRestaurant(r) {
       stars: r.rating
    };
 }
-export const updateUserPosition = position => dispatch => {
+export const updateUserPosition = position => async dispatch => {
    dispatch({ type: 'UPDATE_USER_POSITION', payload: position });
-   axios
+   await axios
       .get(
-         `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=683&type=restaurant&key=${API_KEY}`
+         `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`
       )
       .then(response => {
-         response.data.results.map(r => {
-            return axios
+         response.data.results.map(async r => {
+            return await axios
                .get(
                   `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
                )
