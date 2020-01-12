@@ -30,27 +30,18 @@ function formatRestaurant(r) {
       stars: r.rating
    };
 }
-export const updateUserPosition = position => dispatch => {
+
+export const updateUserPosition = position => async dispatch => {
    dispatch({ type: 'UPDATE_USER_POSITION', payload: position });
- axios
-      .get(
-         `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`
-      )
-      .then(response => {
-         response.data.results.map( r => {
-            return axios
-               .get(
-                  `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
-               )
-               .then(response => {
-                  dispatch({
-                     type: 'UPDATE_RESTAURANTS',
-                     payload: formatRestaurant(response.data.result)
-                  });
-               });
-         });
-      })
-      .catch(error => {
-         console.log(error);
+
+   const res = await axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`);
+   const data = res.data;
+
+   data.results.map(async r => {
+      const details = await axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`)
+      dispatch({
+         type: 'UPDATE_RESTAURANTS',
+         payload: formatRestaurant(details.data.result)
       });
+   })
 };
