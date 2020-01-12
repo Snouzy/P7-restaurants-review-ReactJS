@@ -103,6 +103,6 @@ const mapDipatchToProps = {
 export default connect(mapStateToProps, mapDipatchToProps)(Restaurants);
 
 const DivRestaurants = styled.div`
-   height: 100vh;
+   height: 80vh;
    overflow-y: scroll;
 `;

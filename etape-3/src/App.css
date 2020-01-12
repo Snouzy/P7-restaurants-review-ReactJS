@@ -7,3 +7,11 @@
 select {
    text-align-last: center;
 }
+
+html { overflow-y: hidden; }
+
+@media screen and (max-width: 992px) {
+   html {
+      overflow-y: visible;
+   }
+}

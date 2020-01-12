@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { API_KEY } from "../api_key";
-import MapOptions from "./Containers/MapOptions";
-import { updateUserPosition } from "../actions";
-import { withScriptjs, withGoogleMap } from "react-google-maps";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { API_KEY } from '../api_key';
+import MapOptions from './Containers/MapOptions';
+import { updateUserPosition } from '../actions';
+import { withScriptjs, withGoogleMap } from 'react-google-maps';
 
 class RenderMap extends Component {
    componentWillMount() {
@@ -32,7 +32,9 @@ class RenderMap extends Component {
             }
          );
       } else {
-         alert('La position n\'est pas supportée ou est desactivée par votre navigateur. Vous serez donc localiser, par défaut, à Paris.')
+         alert(
+            "La position n'est pas supportée ou est desactivée par votre navigateur. Vous serez donc localiser, par défaut, à Paris."
+         );
          this.props.updateUserPosition({ lat: 48.866667, lng: 2.333333 });
       }
    }
@@ -41,12 +43,12 @@ class RenderMap extends Component {
       const WrappedMap = withScriptjs(withGoogleMap(() => <MapOptions />));
 
       return (
-         <div className="col-sm-12 col-lg-9" style={{ height: "50%" }}>
+         <div className="col-sm-12 col-lg-9" style={{ height: '50%' }}>
             <WrappedMap
                googleMapURL={`https://maps.googleapis.com/maps/api/js?3.40.explibraries=geometry,drawing,places&key=${API_KEY}`}
-               loadingElement={<div style={{ height: `100%` }} />}
-               containerElement={<div style={{ height: `700px` }} />}
-               mapElement={<div style={{ height: `100%` }} />}
+               loadingElement={<div style={{ height: `80%` }} />}
+               containerElement={<div style={{ height: `80vh` }} />}
+               mapElement={<div style={{ height: `80vh` }} />}
             />
          </div>
       );
