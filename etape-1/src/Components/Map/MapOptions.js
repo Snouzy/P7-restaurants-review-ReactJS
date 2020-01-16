@@ -1,18 +1,18 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment } from 'react';
 //utils libs
-import _ from "lodash";
-import ReactStreetview from "react-streetview";
-import styled from "styled-components";
+import _ from 'lodash';
+import ReactStreetview from 'react-streetview';
+import styled from 'styled-components';
 //Google
-import { GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import { GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 //utils imports
-import data from "../../data.json";
-import { API_KEY } from "../../api_key";
+import data from '../../data.json';
+import { API_KEY } from '../../api_key';
 //Personal imports
-import { CommentForm } from "../Common/CommentForm";
-import { UsersReviews } from "../UsersReviews";
-import { HeaderOfTheWindowSection } from "../Header/HeaderOfTheWindowSection";
-import UserIcon from "../../imgs/MapMarker_PushPin_Left_Green.svg";
+import { CommentForm } from '../Common/CommentForm';
+import { UsersReview } from '../Common/UserReview';
+import HeaderRestaurantsModal from '../Header/HeaderRestaurantsModal';
+import UserIcon from '../../imgs/MapMarker_PushPin_Left_Green.svg';
 
 export const MapOptions = props => {
    //on recoit les props de la classe Map
@@ -43,7 +43,7 @@ export const MapOptions = props => {
       comments.push({ numberOfStars, text });
    };
 
-   console.log("Comment array : ", comments);
+   console.log('Comment array : ', comments);
    return (
       <Fragment>
          <GoogleMap defaultZoom={8} defaultCenter={coords}>
@@ -73,10 +73,17 @@ export const MapOptions = props => {
                >
                   {/* All the content of the InfoWindow modal */}
                   <div>
-                     <HeaderOfTheWindowSection
+                     <HeaderRestaurantsModal
                         selectedRestaurant={selectedRestaurant}
                      />
-                     <UsersReviews selectedRestaurant={selectedRestaurant} />
+                     {selectedRestaurant.ratings.map((el, index) => {
+                        return (
+                           <UsersReview
+                              selectedRestaurant={selectedRestaurant}
+                              numero={index + 1}
+                           />
+                        );
+                     })}
 
                      {/* Comment Form */}
                      <CommentForm
