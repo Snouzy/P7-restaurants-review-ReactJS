@@ -8,6 +8,10 @@ export const average = arr => {
    );
 };
 
+/**** 
+param @thingsToCalculate : array
+*****/
+
 export const averageStars = thingsToCalculate => {
    const arrayOfThingsToCalculate = [];
    for (let i = 0; i < thingsToCalculate.length; i++) {

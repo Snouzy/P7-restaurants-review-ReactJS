@@ -34,7 +34,7 @@ class RenderMap extends Component {
             error => {
                if (error.code === 1) {
                   alert(
-                     "Vous n'avez pas autoriser la géolocalisation. Vous serez donc géolocalisé, par défaut, à Paris. Cependant, tous les restaurants, pour l'étape 1, se trouvent en Alsace !"
+                     "Vous n'avez pas autoriser la géolocalisation. Vous serez donc géolocalisé, par défaut, à Paris."
                   );
                }
             }

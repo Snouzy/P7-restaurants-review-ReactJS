@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
-import OptionElt from "./OptionElt";
-import _ from "lodash";
+import React, { Fragment } from 'react';
+import OptionElt from './OptionElt';
+import _ from 'lodash';
 
 const Filter = props => {
    //get an array in order : 1,2,3... till numberOfOption length
-   const numberOfOptionsElements = _.range(1, props.numberOfOptions + 1);
+   const numberOfOptionsElements = _.range(0, props.numberOfOptions + 1);
    return (
       <Fragment>
          {/* The filter "minimum" */}
@@ -16,9 +16,9 @@ const Filter = props => {
                className="form-control"
                onChange={props.changed}
             >
-               {numberOfOptionsElements.map(el => {
-                  return <OptionElt key={el} value={el} number={el} />;
-               })}
+               {numberOfOptionsElements.map(el => (
+                  <OptionElt key={el} value={el} number={el} />
+               ))}
             </select>
          </div>
 
@@ -32,9 +32,9 @@ const Filter = props => {
                onChange={props.changed}
                value={props.maxStars} //set the defaultValue
             >
-               {numberOfOptionsElements.map(el => {
-                  return <OptionElt key={el} value={el} number={el} />;
-               })}
+               {numberOfOptionsElements.map(el => (
+                  <OptionElt key={el} value={el} number={el} />
+               ))}
             </select>
          </div>
       </Fragment>

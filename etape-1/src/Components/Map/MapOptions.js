@@ -20,6 +20,7 @@ export const MapOptions = props => {
 
    const handleClick = index => {
       //put the user's selectedRestaurant into the state
+      console.log(index);
       setSelectedRestaurant(data[index]);
    };
 
@@ -35,15 +36,13 @@ export const MapOptions = props => {
       <Fragment>
          <GoogleMap defaultZoom={8} defaultCenter={coords}>
             {/* display the markers */}
-            {data.map((resto, index) => {
-               return (
-                  <Marker
-                     key={resto.restaurantName}
-                     position={formatPosition(resto)}
-                     onClick={() => handleClick(index)}
-                  />
-               );
-            })}
+            {data.map((resto, index) => (
+               <Marker
+                  key={resto.restaurantName}
+                  position={formatPosition(resto)}
+                  onClick={() => handleClick(index)}
+               />
+            ))}
             <Marker
                key="userPosition"
                position={coords}
@@ -63,15 +62,13 @@ export const MapOptions = props => {
                      <HeaderRestaurantsModal
                         selectedRestaurant={selectedRestaurant}
                      />
-                     {selectedRestaurant.ratings.map((el, index) => {
-                        return (
-                           <UsersReview
-                              key={index}
-                              selectedRestaurant={el}
-                              numero={index + 1}
-                           />
-                        );
-                     })}
+                     {selectedRestaurant.ratings.map((el, index) => (
+                        <UsersReview
+                           key={index}
+                           selectedRestaurant={el}
+                           numero={index + 1}
+                        />
+                     ))}
 
                      {/* google street-view */}
                      <DivStreetView>
@@ -80,7 +77,6 @@ export const MapOptions = props => {
                            apiKey={API_KEY}
                            streetViewPanoramaOptions={{
                               position: formatPosition(selectedRestaurant),
-                              pov: { heading: 100, pitch: 0 },
                               zoom: 1
                            }}
                         />

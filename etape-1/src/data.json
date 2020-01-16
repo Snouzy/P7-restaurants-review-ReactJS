@@ -5,15 +5,15 @@
       "lat": 47.592830,
       "long": 7.583890,
       "ratings": [{
-            "stars": 2,
+            "stars": 1,
             "comment": "Un excellent restaurant, j'y reviendrai, si le poisson est frais !"
          },
          {
-            "stars": 1,
+            "stars": 3,
             "comment": "Nul grave !"
          },
          {
-            "stars": 3,
+            "stars": 2,
             "comment": "Top, si la caraffe d'eau n'était pas payante !"
          }
       ]
