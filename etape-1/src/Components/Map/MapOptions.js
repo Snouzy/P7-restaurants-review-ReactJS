@@ -17,8 +17,6 @@ export const MapOptions = props => {
    //on recoit les props de la classe Map
    const { coords } = props;
    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-   const [userComment, setUserComment] = useState(null);
-   const comments = [];
 
    const handleClick = index => {
       //put the user's selectedRestaurant into the state

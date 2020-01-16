@@ -27,13 +27,17 @@ class RenderMap extends Component {
                this.props.updateUserPosition(coords);
             },
             error => {
-               console.log(error);
+               if (error.code === 1) {
+                  alert(
+                     "Vous n'avez pas autoriser la géolocalisation. Vous serez donc géolocalisé, par défaut, à Paris"
+                  );
+               }
                this.props.updateUserPosition({ lat: 48.866667, lng: 2.333333 });
             }
          );
       } else {
          alert(
-            "La position n'est pas supportée ou est desactivée par votre navigateur. Vous serez donc localiser, par défaut, à Paris."
+            "La position n'est pas supportée ou a été desactivée. Vous serez donc localiser, par défaut, à Paris."
          );
          this.props.updateUserPosition({ lat: 48.866667, lng: 2.333333 });
       }
