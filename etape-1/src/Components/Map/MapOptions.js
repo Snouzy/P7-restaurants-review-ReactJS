@@ -9,7 +9,6 @@ import { GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import data from '../../data.json';
 import { API_KEY } from '../../api_key';
 //Personal imports
-import { CommentForm } from '../Common/CommentForm';
 import { UsersReview } from '../Common/UserReview';
 import HeaderRestaurantsModal from '../Header/HeaderRestaurantsModal';
 import UserIcon from '../../imgs/MapMarker_PushPin_Left_Green.svg';
@@ -26,11 +25,6 @@ export const MapOptions = props => {
       setSelectedRestaurant(data[index]);
    };
 
-   const handleChange = e => {
-      setUserComment(e.target.value);
-      console.log(userComment);
-   };
-
    // to put only 1 line on G-maps components props, like : position=formatPosition(resto)
    const formatPosition = restaurant => {
       return {
@@ -39,11 +33,6 @@ export const MapOptions = props => {
       };
    };
 
-   const addingComment = (numberOfStars, text) => {
-      comments.push({ numberOfStars, text });
-   };
-
-   console.log('Comment array : ', comments);
    return (
       <Fragment>
          <GoogleMap defaultZoom={8} defaultCenter={coords}>
@@ -79,16 +68,12 @@ export const MapOptions = props => {
                      {selectedRestaurant.ratings.map((el, index) => {
                         return (
                            <UsersReview
-                              selectedRestaurant={selectedRestaurant}
+                              key={index}
+                              selectedRestaurant={el}
                               numero={index + 1}
                            />
                         );
                      })}
-
-                     {/* Comment Form */}
-                     <CommentForm
-                        changed={e => setUserComment(e.target.value)}
-                     />
 
                      {/* google street-view */}
                      <DivStreetView>
