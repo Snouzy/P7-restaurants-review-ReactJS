@@ -222,7 +222,7 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(MapOptions);
 
 const DivStreetView = styled.div`
-   width: 50rem;
+   width: 100%;
    height: 400px;
    margin-top: 50px;
 `;
