@@ -1,23 +1,28 @@
-import React from "react";
-import { filterRestaurants, commentsFlag } from "../../actions";
-import { connect } from "react-redux";
-import Stars from "../Common/Stars";
-import { averageStars } from "../../services/libs";
-import Filter from "../Common/Filter";
+import React from 'react';
+import { filterRestaurants, commentsFlag } from '../../actions';
+import { connect } from 'react-redux';
+import Stars from '../Common/Stars';
+import { averageStars } from '../../services/libs';
+import Filter from '../Common/Filter';
 
 const Restaurants = props => {
-   const { restaurants, restaurantsFiltered, commentsFlag } = props; //from redux
+   const {
+      restaurants,
+      restaurantsFiltered,
+      commentsFlag,
+      filterRestaurants
+   } = props; //from redux
    const [minimum, setMinimum] = React.useState(0); // min filter = 1
    const [maximum, setMaximum] = React.useState(5); // max filter = 5
 
    // setting the min & max into the state when a user change the values of the options
    const handleFilter = e => {
-      if (e.target.name === "sort-max") {
+      if (e.target.name === 'sort-max') {
          setMaximum(parseInt(e.target.value));
-         setMinimum(parseInt(document.getElementsByName("sort-min")[0].value));
+         setMinimum(parseInt(document.getElementsByName('sort-min')[0].value));
       } else {
          setMinimum(parseInt(e.target.value));
-         setMaximum(document.getElementsByName("sort-max")[0].value);
+         setMaximum(document.getElementsByName('sort-max')[0].value);
       }
    };
 
@@ -35,8 +40,8 @@ const Restaurants = props => {
          return restaurantStars >= minimum && restaurantStars <= maximum;
       });
       // pushing ones which correspond to the filter into the store
-      props.filterRestaurants(restos);
-   }, [minimum, maximum, restaurants, commentsFlag]); //changing when filter change or the restaurants store change
+      filterRestaurants(restos);
+   }, [minimum, maximum, restaurants, commentsFlag, filterRestaurants]); //changing when filter change or the restaurants store change
 
    return (
       <div className="row col-sm-12 col-lg-3">
@@ -53,7 +58,7 @@ const Restaurants = props => {
                   ({ restaurantName, address, ratings }, index) => (
                      <div key={index}>
                         <h5>{restaurantName}</h5>
-                        <p style={{ marginBottom: "0" }}>{address}</p>
+                        <p style={{ marginBottom: '0' }}>{address}</p>
                         <Stars
                            numberOfStars={averageStars(ratings)}
                            isEditable={false}
