@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from 'react';
 //utils libs
-import _ from 'lodash';
 import ReactStreetview from 'react-streetview';
 import styled from 'styled-components';
 //Google
@@ -8,7 +7,7 @@ import { GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 //utils imports
 import data from '../../data.json';
 import { API_KEY } from '../../api_key';
-//Personal imports
+//Components imports
 import { UsersReview } from '../Common/UserReview';
 import HeaderRestaurantsModal from '../Header/HeaderRestaurantsModal';
 import UserIcon from '../../imgs/MapMarker_PushPin_Left_Green.svg';

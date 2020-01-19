@@ -45,7 +45,7 @@ export const MapOptions = props => {
    ADDING A RESTAURANT 
    =============== */
 
-   // when a user right click on the map to add a new restaurant
+   // when a user click on the map to add a new restaurant
    const handleClickAdd = e => {
       setIsAdding(true);
       const lat = e.latLng.lat();
@@ -222,7 +222,7 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(MapOptions);
 
 const DivStreetView = styled.div`
-   width: 100%;
+   width: 700px;
    height: 400px;
    margin-top: 50px;
 `;

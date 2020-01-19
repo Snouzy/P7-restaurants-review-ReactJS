@@ -10,7 +10,8 @@ class RenderMap extends Component {
       this.getCurrentLocation();
    }
 
-   // re render to re - center the map on the user position !
+   // if userPosition !== old UserPosition
+   // ⟶ rerender the comp. to re-center the map on the user position.
    shouldComponentUpdate(nextProps) {
       return this.props.userPosition !== nextProps.userPosition;
    }
@@ -19,6 +20,7 @@ class RenderMap extends Component {
       if (window.navigator && window.navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(
             pos => {
+               //user accept access
                const { latitude, longitude } = pos.coords;
                const coords = {
                   lat: parseFloat(latitude),
@@ -28,6 +30,7 @@ class RenderMap extends Component {
             },
             error => {
                if (error.code === 1) {
+                  //user denied access
                   alert(
                      "Vous n'avez pas autoriser la géolocalisation. Vous serez donc géolocalisé, par défaut, à Paris"
                   );
@@ -36,6 +39,7 @@ class RenderMap extends Component {
             }
          );
       } else {
+         // not avaliable
          alert(
             "La position n'est pas supportée ou a été desactivée. Vous serez donc localiser, par défaut, à Paris."
          );
