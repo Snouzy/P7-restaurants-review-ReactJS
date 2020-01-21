@@ -124,9 +124,10 @@ export const MapOptions = props => {
    };
 
    const handleDragEnd = () => {
+      console.log(map);
       props.updateUserPosition({
-         lat: map.current.getCenter().lat(),
-         lng: map.current.getCenter().lng()
+         lat: map.current.getPosition().lat(),
+         lng: map.current.getPosition().lng()
       });
       props.resetRestaurants();
    };
@@ -150,8 +151,6 @@ export const MapOptions = props => {
             defaultZoom={8}
             defaultCenter={props.userPosition}
             onClick={handleClickAdd}
-            onDragEnd={handleDragEnd}
-            ref={map}
          >
             {/* display the markers */}
             {props.restaurantsFiltered.map((resto, index) => {
@@ -169,6 +168,9 @@ export const MapOptions = props => {
                   url: UserIcon,
                   scaledSize: new window.google.maps.Size(25, 40)
                }}
+               draggable={true}
+               onDragEnd={handleDragEnd}
+               ref={map}
             />
             {/* If the user clicked on a restaurant, display the google window with his content: */}
             {selectedRestaurant && (
