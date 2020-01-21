@@ -8,7 +8,7 @@ import { averageStars } from './services/libs';
 function App() {
    const [restaurants, setRestaurants] = React.useState(data);
    const [minimum, setMinimum] = React.useState(null);
-   const [maximum, setMaximum] = React.useState(5); //initializing the ratings to 5 stars max
+   const [maximum, setMaximum] = React.useState(5); //initializing the ratings to 5 starsmax
 
    const handleFilter = e => {
       if (e.target.name === 'sort-max') {
