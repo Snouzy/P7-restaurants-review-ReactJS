@@ -45,6 +45,7 @@ const Restaurants = props => {
          //return all the restaurants between the filter
          return restaurantStars >= minimum && restaurantStars <= maximum;
       });
+      // console.log(restos);
       // pushing ones which correspond to the filter into the store
       filterRestaurants(restos);
    }, [minimum, maximum, restaurants, commentsFlag, filterRestaurants]); //changing when filter change or the restaurants store change

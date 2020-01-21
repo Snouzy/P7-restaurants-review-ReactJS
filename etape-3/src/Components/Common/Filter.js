@@ -1,11 +1,10 @@
-import React, { Fragment } from "react";
-import OptionElt from "./OptionElt";
-import _ from "lodash";
+import React, { Fragment } from 'react';
+import OptionElt from './OptionElt';
+import _ from 'lodash';
 
 const Filter = ({ numberOfOptions, changed, maxStars }) => {
    //get an array in order : 1,2,3... till numberOfOption length
    const numberOfOptionsElements = _.range(0, numberOfOptions + 1);
-
    return (
       <Fragment>
          {/* The filter "minimum" */}

@@ -6,7 +6,14 @@ import { formatPosition, getMoment } from '../../services/libs';
 import ReactStreetview from 'react-streetview';
 import styled from 'styled-components';
 //Google
-import { GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import {
+   GoogleMap,
+   Marker,
+   InfoWindow,
+   setCenter,
+   getCenter,
+   panTo
+} from 'react-google-maps';
 //utils imports
 import { API_KEY } from '../../api_key';
 //Personal imports
@@ -16,6 +23,7 @@ import AddingRestaurantForm from '../Forms/AddingRestaurantForm';
 import { UserReview } from '../Common/UserReview';
 import UserIcon from '../../imgs/google-maps-marker-green.png';
 import Geocode from 'react-geocode';
+import { updateUserPosition, resetRestaurants } from '../../actions';
 
 export const MapOptions = props => {
    // GoogleMap GeoCode API  initialisation
@@ -33,12 +41,14 @@ export const MapOptions = props => {
    const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
       ''
    );
+   let test = React.createRef();
 
    // on click on one of the markers
    const handleClick = index => {
       //put the user's selectedRestaurant into the state
-      setSelectedRestaurant(props.restaurants[index]);
+      setSelectedRestaurant(props.restaurantsFiltered[index]);
    };
+   console.log(selectedRestaurant);
 
    /* 
    =============== 
@@ -123,10 +133,19 @@ export const MapOptions = props => {
       }
    };
 
+   const handleDragEnd = e => {
+      props.updateUserPosition({
+         lat: test.current.getCenter().lat(),
+         lng: test.current.getCenter().lng()
+      });
+      props.resetRestaurants();
+   };
+
    // when the user click the close button of the Restaurant adding's form ("Fermer")
    const handleClose = () => {
       setIsAdding(false); //close the modal
    };
+
    return (
       <Fragment>
          {isAdding && (
@@ -141,15 +160,19 @@ export const MapOptions = props => {
             defaultZoom={8}
             defaultCenter={props.userPosition}
             onClick={handleClickAdd}
+            onDragEnd={e => handleDragEnd(e)}
+            ref={test}
          >
             {/* display the markers */}
-            {props.restaurants.map((resto, index) => (
-               <Marker
-                  key={resto.id}
-                  position={formatPosition(resto)}
-                  onClick={() => handleClick(index)}
-               />
-            ))}
+            {props.restaurantsFiltered.map((resto, index) => {
+               return (
+                  <Marker
+                     key={resto.id}
+                     position={formatPosition(resto)}
+                     onClick={() => handleClick(index)}
+                  />
+               );
+            })}
             <Marker
                position={props.userPosition}
                icon={{
@@ -157,11 +180,13 @@ export const MapOptions = props => {
                   scaledSize: new window.google.maps.Size(25, 40)
                }}
             />
-
             {/* If the user clicked on a restaurant, display the google window with his content: */}
             {selectedRestaurant && (
                <InfoWindow
-                  position={formatPosition(selectedRestaurant)}
+                  position={{
+                     lat: selectedRestaurant.lat,
+                     lng: selectedRestaurant.long
+                  }}
                   onCloseClick={() => setSelectedRestaurant(null)} //putting the value to 0 restaurant selected
                >
                   {/* All the content of the InfoWindow modal */}
@@ -203,6 +228,7 @@ export const MapOptions = props => {
                   </div>
                </InfoWindow>
             )}
+            )}
          </GoogleMap>
       </Fragment>
    );
@@ -216,6 +242,8 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = {
    fetchRestaurants,
+   updateUserPosition,
+   resetRestaurants,
    commentsFlag
 };
 

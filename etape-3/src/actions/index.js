@@ -1,8 +1,14 @@
 import { API_KEY } from '../api_key';
 import axios from 'axios';
+
 export function fetchRestaurants(args) {
    return function(dispatch) {
       dispatch({ type: 'UPDATE_RESTAURANTS', payload: args });
+   };
+}
+export function resetRestaurants() {
+   return function(dispatch) {
+      dispatch({ type: 'RESET_RESTAURANT' });
    };
 }
 
@@ -30,18 +36,18 @@ function formatRestaurant(r) {
       stars: r.rating
    };
 }
-
+//https://cors-anywhere.herokuapp.com/
 export const updateUserPosition = position => async dispatch => {
    dispatch({ type: 'UPDATE_USER_POSITION', payload: position });
 
    const res = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`
    );
    const data = res.data;
 
    data.results.map(async r => {
       const details = await axios.get(
-         `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
+         `https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
       );
       dispatch({
          type: 'UPDATE_RESTAURANTS',

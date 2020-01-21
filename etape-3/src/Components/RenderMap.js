@@ -32,7 +32,7 @@ class RenderMap extends Component {
                if (error.code === 1) {
                   //user denied access
                   alert(
-                     "Vous n'avez pas autoriser la géolocalisation. Vous serez donc géolocalisé, par défaut, à Paris"
+                     "Vous n'avez pas autorisé la géolocalisation. Vous serez donc géolocalisé, par défaut, à Paris"
                   );
                }
                this.props.updateUserPosition({ lat: 48.866667, lng: 2.333333 });
