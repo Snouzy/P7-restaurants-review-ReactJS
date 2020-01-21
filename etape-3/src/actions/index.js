@@ -6,6 +6,15 @@ export function fetchRestaurants(args) {
       dispatch({ type: 'UPDATE_RESTAURANTS', payload: args });
    };
 }
+
+export function updateZoom(args) {
+   console.log('hello from the updateZoom actions', args);
+   return function(dispatch) {
+      console.log(dispatch);
+      dispatch({ type: 'UPDATE_ZOOM', payload: args });
+   };
+}
+
 export function resetRestaurants() {
    return function(dispatch) {
       dispatch({ type: 'RESET_RESTAURANT' });
