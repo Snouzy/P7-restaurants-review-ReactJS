@@ -41,7 +41,13 @@ export const updateUserPosition = position => async dispatch => {
    dispatch({ type: 'UPDATE_USER_POSITION', payload: position });
 
    const res = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`
+      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`,
+      {
+         headers: {
+            Authorization: 'Bearer ',
+            'Content-Type': 'application/json'
+         }
+      } //the token is a variable which holds the token}}
    );
    const data = res.data;
 

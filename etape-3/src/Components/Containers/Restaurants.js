@@ -48,7 +48,7 @@ const Restaurants = props => {
       // console.log(restos);
       // pushing ones which correspond to the filter into the store
       filterRestaurants(restos);
-   }, [minimum, maximum, restaurants, commentsFlag, filterRestaurants]); //changing when filter change or the restaurants store change
+   }, [minimum, maximum, restaurants, commentsFlag]); //changing when filter change or the restaurants store change
 
    return (
       <>

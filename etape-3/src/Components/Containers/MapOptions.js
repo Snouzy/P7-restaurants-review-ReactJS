@@ -6,14 +6,7 @@ import { formatPosition, getMoment } from '../../services/libs';
 import ReactStreetview from 'react-streetview';
 import styled from 'styled-components';
 //Google
-import {
-   GoogleMap,
-   Marker,
-   InfoWindow,
-   setCenter,
-   getCenter,
-   panTo
-} from 'react-google-maps';
+import { GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 //utils imports
 import { API_KEY } from '../../api_key';
 //Personal imports
@@ -41,14 +34,13 @@ export const MapOptions = props => {
    const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
       ''
    );
-   let test = React.createRef();
+   const map = React.createRef();
 
    // on click on one of the markers
    const handleClick = index => {
       //put the user's selectedRestaurant into the state
       setSelectedRestaurant(props.restaurantsFiltered[index]);
    };
-   console.log(selectedRestaurant);
 
    /* 
    =============== 
@@ -91,16 +83,14 @@ export const MapOptions = props => {
       setIsAdding(false);
    };
 
-   const formatRestaurant = (name, address) => {
-      return {
-         id: props.restaurants.length + 1,
-         restaurantName: name,
-         address: address,
-         lat: posOfTheRestaurant[0],
-         long: posOfTheRestaurant[1],
-         ratings: []
-      };
-   };
+   const formatRestaurant = (name, address) => ({
+      id: props.restaurants.length + 1,
+      restaurantName: name,
+      address: address,
+      lat: posOfTheRestaurant[0],
+      long: posOfTheRestaurant[1],
+      ratings: []
+   });
 
    /* 
    =============== 
@@ -133,10 +123,10 @@ export const MapOptions = props => {
       }
    };
 
-   const handleDragEnd = e => {
+   const handleDragEnd = () => {
       props.updateUserPosition({
-         lat: test.current.getCenter().lat(),
-         lng: test.current.getCenter().lng()
+         lat: map.current.getCenter().lat(),
+         lng: map.current.getCenter().lng()
       });
       props.resetRestaurants();
    };
@@ -160,8 +150,8 @@ export const MapOptions = props => {
             defaultZoom={8}
             defaultCenter={props.userPosition}
             onClick={handleClickAdd}
-            onDragEnd={e => handleDragEnd(e)}
-            ref={test}
+            onDragEnd={handleDragEnd}
+            ref={map}
          >
             {/* display the markers */}
             {props.restaurantsFiltered.map((resto, index) => {
