@@ -47,7 +47,15 @@ class RenderMap extends Component {
 
    render() {
       const WrappedMap = withScriptjs(
-         withGoogleMap(() => <MapOptions coords={this.state.coords} />)
+         withGoogleMap(() => (
+            <MapOptions
+               coords={this.state.coords}
+               restaurants={this.props.restaurants}
+               minimum={this.props.minimum}
+               maximum={this.props.maximum}
+               hasFiltered={this.props.handleFilter}
+            />
+         ))
       );
 
       return (

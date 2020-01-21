@@ -19,7 +19,6 @@ export const MapOptions = props => {
 
    const handleClick = index => {
       //put the user's selectedRestaurant into the state
-      console.log(index);
       setSelectedRestaurant(data[index]);
    };
 
@@ -31,11 +30,12 @@ export const MapOptions = props => {
       };
    };
 
+   console.log(props);
    return (
       <Fragment>
          <GoogleMap defaultZoom={8} defaultCenter={coords}>
             {/* display the markers */}
-            {data.map((resto, index) => (
+            {props.restaurants.map((resto, index) => (
                <Marker
                   key={resto.restaurantName}
                   position={formatPosition(resto)}

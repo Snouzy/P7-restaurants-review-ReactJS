@@ -3,37 +3,10 @@ import data from '../data.json';
 import Stars from './Common/Stars';
 import { averageStars } from '../services/libs';
 import Filter from './Common/Filter';
-export const Restaurants = () => {
-   const [restaurants, setRestaurants] = React.useState(data);
-   const [minimum, setMinimum] = React.useState(null);
-   const [maximum, setMaximum] = React.useState(5); //initializing the ratings to 5 stars max
-
-   const handleFilter = e => {
-      if (e.target.name === 'sort-max') {
-         setMaximum(parseInt(e.target.value));
-         setMinimum(parseInt(document.getElementsByName('sort-min')[0].value));
-      } else {
-         setMinimum(parseInt(e.target.value));
-         setMaximum(document.getElementsByName('sort-max')[0].value);
-      }
-   };
-
-   React.useEffect(() => {
-      const restos = data.filter(
-         resto =>
-            averageStars(resto.ratings) >= minimum &&
-            averageStars(resto.ratings) <= maximum
-      );
-      setRestaurants(restos); //updating the state with new values
-   }, [minimum, maximum, setRestaurants]);
-
+export const Restaurants = ({ maximum, hasFiltered, restaurants }) => {
    return (
       <div className="row col-sm-12 col-lg-3">
-         <Filter
-            changed={e => handleFilter(e)}
-            maxStars={maximum}
-            numberOfOptions={5}
-         />
+         <Filter changed={hasFiltered} maxStars={maximum} numberOfOptions={5} />
          <div id="restaux" className="col-sm-12">
             {restaurants.map((resto, index) => (
                <div key={index}>
