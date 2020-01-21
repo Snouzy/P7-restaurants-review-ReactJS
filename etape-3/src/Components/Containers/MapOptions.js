@@ -34,7 +34,7 @@ export const MapOptions = props => {
    const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
       ''
    );
-   const map = React.createRef();
+   const marker = React.createRef();
 
    // on click on one of the markers
    const handleClick = index => {
@@ -124,10 +124,9 @@ export const MapOptions = props => {
    };
 
    const handleDragEnd = () => {
-      console.log(map);
       props.updateUserPosition({
-         lat: map.current.getPosition().lat(),
-         lng: map.current.getPosition().lng()
+         lat: marker.current.getPosition().lat(),
+         lng: marker.current.getPosition().lng()
       });
       props.resetRestaurants();
    };
@@ -170,7 +169,7 @@ export const MapOptions = props => {
                }}
                draggable={true}
                onDragEnd={handleDragEnd}
-               ref={map}
+               ref={marker}
             />
             {/* If the user clicked on a restaurant, display the google window with his content: */}
             {selectedRestaurant && (
