@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchRestaurants, commentsFlag } from '../../actions';
+import { fetchRestaurants, commentsFlag, updateZoom } from '../../actions';
 //utils libs
 import { formatPosition, getMoment } from '../../services/libs';
 import ReactStreetview from 'react-streetview';
@@ -34,7 +34,9 @@ export const MapOptions = props => {
    const [addressOfTheRestaurant, setAddressOfTheRestaurant] = React.useState(
       ''
    );
-   const map = React.createRef();
+   const [zoom, setZoom] = React.useState(8);
+   const marker = React.createRef();
+   let map = React.createRef();
 
    // on click on one of the markers
    const handleClick = index => {
@@ -92,6 +94,7 @@ export const MapOptions = props => {
       ratings: []
    });
 
+   console.log(props);
    /* 
    =============== 
    COMMENTING A RESTAURANT 
@@ -123,14 +126,22 @@ export const MapOptions = props => {
       }
    };
 
-   const handleDragEnd = () => {
-      props.updateUserPosition({
-         lat: map.current.getCenter().lat(),
-         lng: map.current.getCenter().lng()
-      });
-      props.resetRestaurants();
+   React.useEffect(() => {
+      console.log('hello');
+   }, [map]);
+
+   const handleZoomChanged = () => {
+      props.updateZoom(map.current.getZoom());
    };
 
+   const handleDragEnd = () => {
+      props.updateUserPosition({
+         lat: marker.current.getPosition().lat(),
+         lng: marker.current.getPosition().lng()
+      });
+
+      props.resetRestaurants();
+   };
    // when the user click the close button of the Restaurant adding's form ("Fermer")
    const handleClose = () => {
       setIsAdding(false); //close the modal
@@ -147,11 +158,11 @@ export const MapOptions = props => {
             />
          )}
          <GoogleMap
-            defaultZoom={8}
+            ref={map}
+            defaultZoom={props.zoom}
             defaultCenter={props.userPosition}
             onClick={handleClickAdd}
-            onDragEnd={handleDragEnd}
-            ref={map}
+            onZoomChanged={handleZoomChanged}
          >
             {/* display the markers */}
             {props.restaurantsFiltered.map((resto, index) => {
@@ -169,6 +180,9 @@ export const MapOptions = props => {
                   url: UserIcon,
                   scaledSize: new window.google.maps.Size(25, 40)
                }}
+               draggable={true}
+               onDragEnd={handleDragEnd}
+               ref={marker}
             />
             {/* If the user clicked on a restaurant, display the google window with his content: */}
             {selectedRestaurant && (
@@ -227,14 +241,16 @@ const mapStateToProps = store => ({
    restaurants: store.restoReducer,
    restaurantsFiltered: store.restoFilter.newRestaurants,
    stateCommentsFlag: store.commentsFlag,
-   userPosition: store.userPosition
+   userPosition: store.userPosition,
+   zoom: store.userZoom
 });
 
 const mapDispatchToProps = {
    fetchRestaurants,
    updateUserPosition,
    resetRestaurants,
-   commentsFlag
+   commentsFlag,
+   updateZoom
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapOptions);
