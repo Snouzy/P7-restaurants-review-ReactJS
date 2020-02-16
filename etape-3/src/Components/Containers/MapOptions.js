@@ -94,7 +94,6 @@ export const MapOptions = props => {
       ratings: []
    });
 
-   console.log(props);
    /* 
    =============== 
    COMMENTING A RESTAURANT 
@@ -171,6 +170,7 @@ export const MapOptions = props => {
                      key={resto.id}
                      position={formatPosition(resto)}
                      onClick={() => handleClick(index)}
+                     animation={2}
                   />
                );
             })}

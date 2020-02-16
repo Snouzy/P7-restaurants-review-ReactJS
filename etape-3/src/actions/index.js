@@ -8,7 +8,6 @@ export function fetchRestaurants(args) {
 }
 
 export function updateZoom(args) {
-   console.log('hello from the updateZoom actions', args);
    return function(dispatch) {
       console.log(dispatch);
       dispatch({ type: 'UPDATE_ZOOM', payload: args });
@@ -50,13 +49,13 @@ export const updateUserPosition = position => async dispatch => {
    dispatch({ type: 'UPDATE_USER_POSITION', payload: position });
 
    const res = await axios.get(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`
+      `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.lat},${position.lng}&radius=10000&type=restaurant&key=${API_KEY}`
    );
    const data = res.data;
 
    data.results.map(async r => {
       const details = await axios.get(
-         `https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
+         `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${r.place_id}&fields=place_id,name,rating,formatted_address,review,geometry&key=${API_KEY}`
       );
       dispatch({
          type: 'UPDATE_RESTAURANTS',
